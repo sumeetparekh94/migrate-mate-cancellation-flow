@@ -1,5 +1,6 @@
 import assert from "assert";
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import FormWrapper from "./FormWrapper";
 import "./index.css";
 
@@ -279,10 +280,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="popup-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="skyline-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -428,10 +431,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="survey-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="survey-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -508,10 +513,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="feedback-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="feedback-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -582,10 +589,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -657,10 +666,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -731,10 +742,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -811,10 +824,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -892,10 +907,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -973,10 +990,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1010,10 +1029,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1040,10 +1061,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 
                                 <div className="visa-contact-card">
                                     <div className="visa-contact-header">
-                                        <img 
+                                        <Image 
                                             src="/mihailo-profile.jpeg" 
                                             alt="Mihailo Bozic profile"
                                             className="visa-contact-avatar"
+                                            width={40}
+                                            height={40}
                                         />
                                         <div className="visa-contact-info">
                                             <div className="visa-contact-name">Mihailo Bozic</div>
@@ -1072,10 +1095,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="visa-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1149,10 +1174,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="discount-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="discount-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1193,10 +1220,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="offer-accepted-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="offer-accepted-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1327,10 +1356,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="offer-declined-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="offer-declined-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1446,10 +1477,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="cancellation-reason-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="cancellation-reason-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1542,10 +1575,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="reason-too-expensive-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-too-expensive-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1629,10 +1664,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="reason-platform-not-helpful-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-platform-not-helpful-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1715,10 +1752,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="reason-not-enough-jobs-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-not-enough-jobs-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1801,10 +1840,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="reason-not-moving-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-not-moving-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1887,10 +1928,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="reason-other-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-other-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
@@ -1935,10 +1978,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             </div>
                             
                             <div className="cancellation-complete-after-reason-right">
-                                <img 
+                                <Image 
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="cancellation-complete-after-reason-image"
+                                    width={400}
+                                    height={437}
                                 />
                             </div>
                         </div>
