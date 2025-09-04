@@ -91,9 +91,6 @@ type CancelFlowState = {
 } | {
     screen: "help-with-visa",
 } | {
-    screen: "2-yes-flow",
-    completed: boolean,
-} | {
     screen: "1-no-flow"
 };
 
@@ -136,16 +133,10 @@ function getNextScreen(state: CancelFlowState): CancelFlowState {
                     hasImmigrationLawyer: undefined,
                 };
             } else {
-                // return {
-                //     screen: "2-yes-flow",
-                // };
                 return state; // Stay on current screen for now
             }
         } else if (state.screen === "yes-with-mm") {
             assert(state.hasImmigrationLawyer !== undefined);
-            // return {
-            //     screen: "2-yes-flow",
-            // };
             return state; // Stay on current screen for now
         }
     } catch {
@@ -556,44 +547,6 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 </div>
             </div>
         )
-    // } else if (latestState.screen === "2-yes-flow") {
-    //     return (
-    //         <div className="cancellation-popup">
-    //             <div className="popup-overlay">
-    //                 <div className="completion-container">
-    //                     <div className="completion-content">
-    //                         <div className="completion-left">
-    //                             <div className="completion-message">
-    //                                 <div className="completion-title">Thank you for your feedback!</div>
-    //                             </div>
-    //                             
-    //                             <div className="completion-description">
-    //                                 Your subscription has been cancelled successfully. We appreciate you taking the time to share your experience with us.
-    //                             </div>
-    //                             
-    //                             <div className="completion-actions">
-    //                                 <button
-    //                                     className="completion-close-btn"
-    //                                     onClick={closeView}
-    //                                 >
-    //                                     <div className="completion-close-text">Close</div>
-    //                                 </button>
-    //                             </div>
-    //                         </div>
-    //                         
-    //                         <div className="completion-right">
-    //                             <img 
-    //                                 src="/empire-state-compressed.jpg" 
-    //                                 alt="New York City skyline with Empire State Building at dusk"
-    //                                 className="completion-image"
-    //                             />
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     )
-    // }
 
     } else if (latestState.screen === "yes-after-yes-with-mm") {
         const canComplete = latestState.visaType !== undefined && latestState.visaType.length > 0;
@@ -801,8 +754,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         onClick={() => {
                                             if (canComplete) {
                                                 setState([...state, {
-                                                    screen: "2-yes-flow",
-                                                    completed: true,
+                                                    screen: "no-help-with-visa",
                                                 }]);
                                             }
                                         }}
@@ -883,8 +835,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         onClick={() => {
                                             if (canComplete) {
                                                 setState([...state, {
-                                                    screen: "2-yes-flow",
-                                                    completed: true,
+                                                    screen: "no-help-with-visa",
                                                 }]);
                                             }
                                         }}
@@ -1086,7 +1037,70 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 </div>
             </div>
         )
+    } else if (latestState.screen === "1-no-flow") {
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="discount-container">
+                        <SurveyHeader 
+                            step={1} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="discount-content">
+                            <div className="discount-left">
+                                <div className="discount-message">
+                                    <div className="discount-title">We built this to help you land the job, this makes it a little easier.</div>
+                                </div>
+                                
+                                <div className="discount-subtitle">
+                                    We've been there and we're here to help you.
+                                </div>
+                                
+                                <div className="discount-offer-card">
+                                    <div className="discount-offer-content">
+                                        <div className="discount-offer-title">
+                                            <span className="discount-title-text">Here's&nbsp;</span>
+                                            <span className="discount-title-underline">50% off</span>
+                                            <span className="discount-title-text">&nbsp;until you find a job.</span>
+                                        </div>
+                                        <div className="discount-pricing">
+                                            <div className="discount-price">
+                                                <span className="discount-price-amount">$12.50</span>
+                                                <span className="discount-price-period">/month</span>
+                                            </div>
+                                            <div className="discount-original-price">$25 /month</div>
+                                        </div>
+                                    </div>
+                                    <div className="discount-actions">
+                                        <button className="discount-accept-btn">
+                                            <div className="discount-accept-text">Get 50% off</div>
+                                        </button>
+                                        <div className="discount-note">You wont be charged until your next billing date.</div>
+                                    </div>
+                                </div>
+                                
+                                <div className="discount-decline-section">
+                                    <button className="discount-decline-btn" onClick={closeView}>
+                                        <div className="discount-decline-text">No thanks</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="discount-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="discount-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
-    throw new Error("Invalid screen: " + latestState.screen);
+    throw new Error("Invalid screen: " + (latestState as any).screen);
 }

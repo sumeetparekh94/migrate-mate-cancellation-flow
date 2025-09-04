@@ -1286,6 +1286,285 @@
     border-radius: 12px;
 }
 
+/* Discount Offer Screen Styles */
+.discount-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.discount-container .survey-header {
+    border-radius: 16px 16px 0 0;
+}
+
+.discount-content {
+    align-self: stretch;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.discount-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.discount-message {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: flex;
+}
+
+.discount-title {
+    align-self: stretch;
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 36px;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.discount-subtitle {
+    align-self: stretch;
+    color: #62605C;
+    font-size: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.discount-offer-card {
+    align-self: stretch;
+    padding: 12px;
+    background: #EBE1FE;
+    border-radius: 12px;
+    outline: 1px #9A6FFF solid;
+    outline-offset: -1px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: flex;
+}
+
+.discount-offer-content {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.discount-offer-title {
+    align-self: stretch;
+    height: 27px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.discount-title-text {
+    color: #41403D;
+    font-size: 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.discount-title-underline {
+    color: #41403D;
+    font-size: 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    text-decoration: underline;
+    word-wrap: break-word;
+}
+
+.discount-pricing {
+    align-self: stretch;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    display: inline-flex;
+}
+
+.discount-price {
+    width: 138px;
+    height: 23px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.discount-price-amount {
+    color: #9A6FFF;
+    font-size: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.discount-price-period {
+    color: #9A6FFF;
+    font-size: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.discount-original-price {
+    width: 102px;
+    height: 15px;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    text-decoration: line-through;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+}
+
+.discount-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    display: flex;
+}
+
+.discount-accept-btn {
+    align-self: stretch;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4ABF71;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.discount-accept-btn:hover {
+    background: #3a9d5f;
+}
+
+.discount-accept-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.discount-note {
+    align-self: stretch;
+    text-align: center;
+    color: #62605C;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.discount-decline-section {
+    align-self: stretch;
+    border-radius: 8px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.discount-decline-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 2px #E6E6E6 solid;
+    outline-offset: -2px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    background: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.discount-decline-btn:hover {
+    background: #f9f9f9;
+    outline-color: #ccc;
+}
+
+.discount-decline-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.discount-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.discount-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
 /* Form styles for other screens */
 h2 {
     color: #000000;
