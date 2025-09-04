@@ -57,6 +57,44 @@ function SurveyHeader({
     );
 }
 
+// Mobile header component for 1-yes-flow screen
+function MobileHeader({ 
+    step, 
+    totalSteps, 
+    onClose 
+}: { 
+    step: number; 
+    totalSteps: number; 
+    onClose: () => void; 
+}) {
+    return (
+        <div className="mobile-header">
+            <button className="mobile-close-btn" onClick={onClose}></button>
+            <div className="mobile-header-content">
+                <div className="mobile-title">Subscription Cancellation</div>
+                <div className="mobile-progress">
+                    <div className="mobile-progress-dots">
+                        {Array.from({ length: totalSteps }, (_, i) => {
+                            let className = 'mobile-progress-dot';
+                            if (i < step - 1) {
+                                className += ' completed'; // Completed steps (green)
+                            } else if (i === step - 1) {
+                                className += ' current'; // Current step (dark grey)
+                            }
+                            return (
+                                <div key={i} className={className}></div>
+                            );
+                        })}
+                    </div>
+                    <div className="mobile-step-counter">
+                        Step {step} of {totalSteps}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 // Simple header component for offer-accepted screen
 function SimpleHeader({ onClose }: { onClose: () => void }) {
     return (
@@ -258,14 +296,27 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="survey-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={1} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={1} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="survey-content">
                             <div className="survey-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
+                                
                                 <div className="congratulations-message">
                                     <div className="congrats-text">Congrats on the new role! 🎉</div>
                                 </div>
@@ -405,14 +456,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="feedback-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={2} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={2} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="feedback-content">
                             <div className="feedback-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="feedback-message">
                                     <div className="feedback-title">What's one thing you wish we could've helped you with?</div>
                                 </div>
