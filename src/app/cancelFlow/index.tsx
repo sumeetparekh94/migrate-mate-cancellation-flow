@@ -212,7 +212,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
     useEffect(() => {
         // TODO: If there is an error in this API call, how do we handle this in the UI?
         async function saveState() {
-            await fetch("/api/updateCancellationFlowState", {
+            await fetch("/api/cancellation-flow-state", {
                 method: "PUT",
                 body: JSON.stringify({ userId, state }),
             });
