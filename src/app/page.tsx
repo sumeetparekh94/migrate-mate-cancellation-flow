@@ -5,8 +5,8 @@ import CancelFlow from './cancelFlow';
 
 // Mock user data for UI display
 const mockUser = {
-  email: 'user@example.com',
-  id: '1'
+  email: 'user1@example.com',
+  id: '550e8400-e29b-41d4-a716-446655440001'
 };
 
 // Mock subscription data for UI display
@@ -103,7 +103,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gray-50 py-12 relative">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg overflow-hidden">
-          {showCancelFlow ? <CancelFlow closeView={() => setShowCancelFlow(false)} /> : (
+          {showCancelFlow ? <CancelFlow userId={mockUser.id} closeView={() => setShowCancelFlow(false)} /> : (
             <div>
               {/* Header */}
               <div className="px-6 py-8 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-indigo-50">
