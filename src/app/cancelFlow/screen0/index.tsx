@@ -16,7 +16,9 @@ export default function Screen0({
             <div className="popup-overlay">
                 <div className="popup-container">
                     <div className="popup-header">
-                        <h2 className="popup-title">Subscription Cancellation</h2>
+                        <div className="popup-title">
+                            <div className="popup-title-text">Subscription Cancellation</div>
+                        </div>
                         <button className="close-btn" onClick={closeView}></button>
                     </div>
                     
