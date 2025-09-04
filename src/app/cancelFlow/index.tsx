@@ -1255,14 +1255,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="discount-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={1} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={1} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="discount-content">
                             <div className="discount-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="discount-message">
                                     <div className="discount-title">We built this to help you land the job, this makes it a little easier.</div>
                                 </div>
@@ -1274,9 +1286,9 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 <div className="discount-offer-card">
                                     <div className="discount-offer-content">
                                         <div className="discount-offer-title">
-                                            <span className="discount-title-text">Here's&nbsp;</span>
+                                            <span className="discount-title-text">Here's</span>
                                             <span className="discount-title-underline">50% off</span>
-                                            <span className="discount-title-text">&nbsp;until you find a job.</span>
+                                            <span className="discount-title-text">until you find a job.</span>
                                         </div>
                                         <div className="discount-pricing">
                                             <div className="discount-price">
