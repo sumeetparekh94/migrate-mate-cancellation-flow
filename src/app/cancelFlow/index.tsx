@@ -116,6 +116,10 @@ type CancelFlowState = {
     screen: "cancellation-reason",
     reason: string | undefined,
     continueClicked: boolean,
+} | {
+    screen: "reason-too-expensive",
+    maxPrice: string | undefined,
+    continueClicked: boolean,
 };
 
 function getNextScreen(state: CancelFlowState): CancelFlowState {
@@ -1347,10 +1351,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div 
                                             key={option}
                                             className={`cancellation-reason-option ${latestState.reason === option ? 'selected' : ''}`}
-                                            onClick={() => setState([...state, {
-                                                ...latestState,
-                                                reason: option,
-                                            }])}
+                                            onClick={() => {
+                                                if (option === "Too expensive") {
+                                                    setState([...state, {
+                                                        screen: "reason-too-expensive",
+                                                        maxPrice: undefined,
+                                                        continueClicked: false,
+                                                    }]);
+                                                } else {
+                                                    setState([...state, {
+                                                        ...latestState,
+                                                        reason: option,
+                                                    }]);
+                                                }
+                                            }}
                                         >
                                             <div className="cancellation-reason-radio">
                                                 <div className={`cancellation-reason-radio-circle ${latestState.reason === option ? 'selected' : ''}`}></div>
@@ -1394,6 +1408,92 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="cancellation-reason-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "reason-too-expensive") {
+        const canContinue = latestState.maxPrice !== undefined && latestState.maxPrice.length > 0;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="reason-too-expensive-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="reason-too-expensive-content">
+                            <div className="reason-too-expensive-left">
+                                <div className="reason-too-expensive-main-container">
+                                    <div className="reason-too-expensive-message">
+                                        <div className="reason-too-expensive-title">What's the main <br/>reason for cancelling?</div>
+                                        <div className="reason-too-expensive-subtitle">Please take a minute to let us know why:</div>
+                                    </div>
+                                    
+                                    <div className="reason-too-expensive-option-section">
+                                        <div className="reason-too-expensive-option-content">
+                                            <div className="reason-too-expensive-radio">
+                                                <div className="reason-too-expensive-radio-circle selected"></div>
+                                            </div>
+                                            <div className="reason-too-expensive-option-text">Too expensive</div>
+                                        </div>
+                                        <div className="reason-too-expensive-question-text">What would be the maximum you would be willing to pay?*</div>
+                                        <div className="reason-too-expensive-input-container">
+                                            <div className="reason-too-expensive-currency">$</div>
+                                            <input
+                                                type="text"
+                                                className="reason-too-expensive-input"
+                                                placeholder=""
+                                                value={latestState.maxPrice || ''}
+                                                onChange={(e) => setState([...state, {
+                                                    ...latestState,
+                                                    maxPrice: e.target.value,
+                                                }])}
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="reason-too-expensive-actions">
+                                        <button 
+                                            className="reason-too-expensive-accept-btn"
+                                            onClick={() => setState([...state, {
+                                                screen: "offer-accepted",
+                                            }])}
+                                        >
+                                            <div className="reason-too-expensive-accept-text">
+                                                <span className="reason-too-expensive-accept-main">Get 50% off | $12.50 </span>
+                                                <span className="reason-too-expensive-accept-strikethrough">$25</span>
+                                            </div>
+                                        </button>
+                                        <button 
+                                            className={`reason-too-expensive-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                            disabled={!canContinue}
+                                            onClick={() => {
+                                                if (canContinue) {
+                                                    setState([...state, {
+                                                        ...latestState,
+                                                        continueClicked: true,
+                                                    }]);
+                                                }
+                                            }}
+                                        >
+                                            <div className="reason-too-expensive-complete-text">Complete cancellation</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="reason-too-expensive-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="reason-too-expensive-image"
                                 />
                             </div>
                         </div>

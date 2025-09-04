@@ -2328,3 +2328,299 @@ button {
 div {
     color: #000000;
 }
+
+/* Reason Too Expensive Screen Styles */
+.reason-too-expensive-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reason-too-expensive-content {
+    width: 1000px;
+    padding: 20px;
+    background: white;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-too-expensive-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-too-expensive-main-container {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-too-expensive-message {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    display: flex;
+}
+
+.reason-too-expensive-title {
+    align-self: stretch;
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 36px;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-too-expensive-subtitle {
+    width: 368px;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-too-expensive-option-section {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.reason-too-expensive-option-content {
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+}
+
+.reason-too-expensive-radio {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+}
+
+.reason-too-expensive-radio-circle {
+    flex: 1 1 0;
+    align-self: stretch;
+    border-radius: 9999px;
+    border: 1px #41403D solid;
+}
+
+.reason-too-expensive-radio-circle.selected {
+    background: #41403D;
+    border-color: #41403D;
+}
+
+.reason-too-expensive-option-text {
+    flex: 1 1 0;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-too-expensive-question-text {
+    width: 100%;
+    height: 22px;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reason-too-expensive-input-container {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px #62605C solid;
+    outline-offset: -1px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    position: relative;
+}
+
+.reason-too-expensive-currency {
+    color: #62605C;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+}
+
+.reason-too-expensive-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    height: 100%;
+}
+
+.reason-too-expensive-input::placeholder {
+    color: #B5B3AF;
+}
+
+.reason-too-expensive-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.reason-too-expensive-accept-btn {
+    align-self: stretch;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4ABF71;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-too-expensive-accept-btn:hover {
+    background: #3a9d5f;
+}
+
+.reason-too-expensive-accept-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.reason-too-expensive-accept-main {
+    color: white;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-too-expensive-accept-strikethrough {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-decoration: line-through;
+    line-height: 12px;
+    word-wrap: break-word;
+}
+
+.reason-too-expensive-complete-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #E6E6E6;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-too-expensive-complete-btn.enabled {
+    background: #41403D;
+}
+
+.reason-too-expensive-complete-btn.enabled:hover {
+    background: #2a2926;
+}
+
+.reason-too-expensive-complete-btn:disabled {
+    cursor: not-allowed;
+}
+
+.reason-too-expensive-complete-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #B5B3AF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-too-expensive-complete-btn.enabled .reason-too-expensive-complete-text {
+    color: white;
+}
+
+.reason-too-expensive-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.reason-too-expensive-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
