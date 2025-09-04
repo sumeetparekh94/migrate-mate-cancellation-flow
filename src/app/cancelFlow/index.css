@@ -48,6 +48,30 @@
     display: none; /* Hidden by default on desktop */
 }
 
+/* Simple Mobile Header for Screen 0 (no progress steps) */
+.mobile-header-simple {
+    width: 320px;
+    height: 60px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    position: relative;
+    background: white;
+    border-bottom: 1px #E6E6E6 solid;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: none; /* Hidden by default on desktop */
+}
+
+.mobile-header-content-simple {
+    flex: 1 1 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+}
+
 /* Desktop Header - Show on desktop */
 @media (min-width: 769px) {
     .survey-header {
@@ -442,8 +466,19 @@
         align-self: center !important;
     }
     
+    /* Simple Mobile Header - Show on mobile for screen 0 */
+    .mobile-header-simple {
+        display: inline-flex !important;
+        width: 100% !important;
+        align-self: center !important;
+    }
+    
     /* Hide desktop header on mobile */
     .survey-header {
+        display: none !important;
+    }
+    
+    .popup-header {
         display: none !important;
     }
     
@@ -847,6 +882,469 @@
     
     .feedback-right {
         display: none !important; /* Hide image on mobile */
+    }
+    
+    /* Mobile responsive styles for screen 0 */
+    .popup-container {
+        width: 100% !important;
+        height: 100vh !important;
+        background: white !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        padding-top: 12px !important;
+        padding-bottom: 16px !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    .popup-content {
+        align-self: stretch !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        display: flex !important;
+        flex: 1 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .popup-left {
+        width: 100% !important;
+        gap: 12px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .popup-right {
+        width: 100% !important;
+        height: 122px !important;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20) !important;
+        border-radius: 8px !important;
+        border-top: 2px rgba(255, 255, 255, 0.30) solid !important;
+        order: -1 !important;
+        align-self: stretch !important;
+    }
+    
+    .skyline-image {
+        width: 100% !important;
+        height: 122px !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+    }
+    
+    .popup-message {
+        align-self: stretch !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        display: flex !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .greeting {
+        align-self: stretch !important;
+        color: #41403D !important;
+        font-size: 24px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        line-height: 20px !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .main-question {
+        align-self: stretch !important;
+        color: #41403D !important;
+        font-size: 24px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-style: italic !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .supporting-text {
+        align-self: stretch !important;
+        color: #62605C !important;
+        font-size: 14px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .popup-buttons {
+        align-self: stretch !important;
+        padding-top: 12px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        background: white !important;
+        box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.05) !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        gap: 8px !important;
+        display: flex !important;
+    }
+    
+    .response-btn {
+        align-self: stretch !important;
+        height: 40px !important;
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        overflow: hidden !important;
+        border-radius: 8px !important;
+        outline: 2px #E6E6E6 solid !important;
+        outline-offset: -2px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+        display: inline-flex !important;
+        background: white !important;
+        border: none !important;
+        cursor: pointer !important;
+        text-align: center !important;
+        color: #62605C !important;
+        font-size: 16px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        line-height: 16px !important;
+        word-wrap: break-word !important;
+    }
+    
+    .response-btn:hover {
+        border-color: #ccc !important;
+        background-color: #f9f9f9 !important;
+    }
+    
+    /* Mobile responsive styles for yes-with-mm and no-without-mm screens */
+    .visa-container {
+        width: 100% !important;
+        height: 100vh !important;
+        background: white !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        padding: 0 !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    .visa-content {
+        align-self: stretch !important;
+        padding: 12px !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        display: flex !important;
+        flex: 1 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        order: 2 !important;
+    }
+    
+    .visa-left {
+        width: 100% !important;
+        gap: 12px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .visa-message {
+        align-self: stretch !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        display: flex !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .visa-title {
+        align-self: stretch !important;
+        color: #41403D !important;
+        font-size: 24px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .visa-question {
+        align-self: stretch !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        display: flex !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .visa-question-text {
+        width: 296px !important;
+        color: #41403D !important;
+        font-size: 16px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .visa-options {
+        align-self: stretch !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        display: flex !important;
+    }
+    
+    .visa-option {
+        align-self: stretch !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        gap: 12px !important;
+        display: inline-flex !important;
+        cursor: pointer !important;
+        transition: all 0.2s !important;
+    }
+    
+    .visa-option:hover {
+        opacity: 0.8 !important;
+    }
+    
+    .visa-radio {
+        width: 20px !important;
+        height: 20px !important;
+        overflow: hidden !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        gap: 10px !important;
+        display: flex !important;
+    }
+    
+    .visa-radio-circle {
+        flex: 1 1 0 !important;
+        align-self: stretch !important;
+        border-radius: 9999px !important;
+        border: 1px #62605C solid !important;
+        transition: all 0.2s !important;
+    }
+    
+    .visa-radio-circle.selected {
+        background: #62605C !important;
+        border-color: #62605C !important;
+    }
+    
+    .visa-option-text {
+        flex: 1 1 0 !important;
+        color: #62605C !important;
+        font-size: 14px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 500 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+    }
+    
+    .visa-complete-section {
+        align-self: stretch !important;
+        padding-top: 12px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        background: white !important;
+        box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.05) !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        gap: 8px !important;
+        display: flex !important;
+    }
+    
+    .visa-complete-btn {
+        align-self: stretch !important;
+        height: 40px !important;
+        padding: 12px !important;
+        background: #E6E6E6 !important;
+        overflow: hidden !important;
+        border-radius: 8px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+        display: inline-flex !important;
+        border: none !important;
+        cursor: pointer !important;
+        transition: all 0.2s !important;
+    }
+    
+    .visa-complete-btn.enabled {
+        background: #41403D !important;
+    }
+    
+    .visa-complete-btn.enabled:hover {
+        background: #2a2926 !important;
+    }
+    
+    .visa-complete-btn:disabled {
+        cursor: not-allowed !important;
+    }
+    
+    .visa-complete-text {
+        text-align: center !important;
+        justify-content: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        color: #B5B3AF !important;
+        font-size: 16px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        line-height: 16px !important;
+        word-wrap: break-word !important;
+    }
+    
+    .visa-complete-btn.enabled .visa-complete-text {
+        color: white !important;
+    }
+    
+    .visa-right {
+        display: none !important; /* Hide image on mobile */
+    }
+    
+    /* Mobile responsive styles for no-without-mm screen */
+    .visa-subtitle {
+        align-self: stretch !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        display: flex !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .visa-subtitle-text {
+        align-self: stretch !important;
+        color: #41403D !important;
+        font-size: 18px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .visa-subtitle-text span {
+        color: #41403D !important;
+        font-size: 18px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+    }
+    
+    .visa-subtitle-text span[style*="text-decoration"] {
+        text-decoration: underline !important;
+    }
+    
+    /* Ensure mobile header is visible in visa-container */
+    .visa-container .mobile-header {
+        display: inline-flex !important;
+        width: 100% !important;
+        align-self: center !important;
+        order: 1 !important;
+    }
+    
+    /* Hide desktop header in visa-container on mobile */
+    .visa-container .survey-header {
+        display: none !important;
+    }
+    
+    .visa-content {
+        order: 2 !important;
+    }
+    
+    /* Mobile responsive styles for no-help-with-visa screen */
+    .visa-container .visa-image {
+        align-self: stretch !important;
+        height: 122px !important;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20) !important;
+        border-radius: 8px !important;
+        border-top: 2px rgba(255, 255, 255, 0.30) solid !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .visa-container .visa-title {
+        align-self: stretch !important;
+        color: #41403D !important;
+        font-size: 24px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        line-height: 24px !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .visa-container .visa-subtitle-text {
+        align-self: stretch !important;
+        color: #41403D !important;
+        font-size: 18px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-weight: 600 !important;
+        word-wrap: break-word !important;
+        margin: 0 !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .visa-container .visa-complete-btn.enabled {
+        background: #996EFF !important;
+        color: white !important;
+    }
+    
+    .visa-container .visa-complete-btn.enabled:hover {
+        background: #8B5CF6 !important;
+    }
+    
+    .visa-container .visa-complete-btn.enabled .visa-complete-text {
+        color: white !important;
     }
 }
 

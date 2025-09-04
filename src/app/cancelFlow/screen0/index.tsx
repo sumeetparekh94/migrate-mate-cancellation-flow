@@ -1,5 +1,17 @@
 import Image from "next/image";
 
+// Mobile header component for screen 0 (no progress steps)
+function MobileHeader({ onClose }: { onClose: () => void }) {
+    return (
+        <div className="mobile-header-simple">
+            <button className="mobile-close-btn" onClick={onClose}></button>
+            <div className="mobile-header-content-simple">
+                <div className="mobile-title">Subscription Cancellation</div>
+            </div>
+        </div>
+    );
+}
+
 export default function Screen0({
     closeView,
     setState,
@@ -15,12 +27,16 @@ export default function Screen0({
         <div className="cancellation-popup">
             <div className="popup-overlay">
                 <div className="popup-container">
+                    {/* Desktop Header */}
                     <div className="popup-header">
                         <div className="popup-title">
                             <div className="popup-title-text">Subscription Cancellation</div>
                         </div>
                         <button className="close-btn" onClick={closeView}></button>
                     </div>
+                    
+                    {/* Mobile Header */}
+                    <MobileHeader onClose={closeView} />
                     
                     <div className="popup-content">
                         <div className="popup-left">

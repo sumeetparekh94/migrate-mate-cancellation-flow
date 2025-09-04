@@ -16,7 +16,7 @@ function SurveyHeader({
     step: number; 
     totalSteps: number; 
     onClose: () => void; 
-    onBack: () => void; 
+    onBack?: () => void; 
 }) {
     const isCompleted = step === totalSteps;
     
@@ -49,10 +49,12 @@ function SurveyHeader({
                     </div>
                 </div>
             </div>
-            <div className="survey-back-btn" onClick={onBack}>
-                <div className="back-arrow"></div>
-                <div className="back-text">Back</div>
-            </div>
+            {onBack && (
+                <div className="survey-back-btn" onClick={onBack}>
+                    <div className="back-arrow"></div>
+                    <div className="back-text">Back</div>
+                </div>
+            )}
         </div>
     );
 }
@@ -89,6 +91,30 @@ function MobileHeader({
                     <div className="mobile-step-counter">
                         Step {step} of {totalSteps}
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// Mobile header component for completed screens (no-help-with-visa)
+function MobileHeaderCompleted({ 
+    onClose 
+}: { 
+    onClose: () => void; 
+}) {
+    return (
+        <div className="mobile-header">
+            <button className="mobile-close-btn" onClick={onClose}></button>
+            <div className="mobile-header-content">
+                <div className="mobile-title">Subscription Cancelled</div>
+                <div className="mobile-progress">
+                    <div className="mobile-progress-dots">
+                        <div className="mobile-progress-dot completed"></div>
+                        <div className="mobile-progress-dot completed"></div>
+                        <div className="mobile-progress-dot completed"></div>
+                    </div>
+                    <div className="mobile-step-counter">Completed</div>
                 </div>
             </div>
         </div>
@@ -550,14 +576,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="visa-message">
                                     <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
                                 </div>
@@ -627,14 +665,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="visa-message">
                                     <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
                                 </div>
@@ -703,14 +753,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="visa-message">
                                     <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
                                 </div>
@@ -779,14 +841,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="visa-message">
                                     <div className="visa-title">
                                         <span>You landed the job! <br/></span>
@@ -795,7 +869,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 </div>
                                 
                                 <div className="visa-subtitle">
-                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br/>let us help get your visa sorted.</div>
+                                    <div className="visa-subtitle-text">
+                                        <span>Even if it wasn't through MigrateMate, let us help get your </span>
+                                        <span style={{textDecoration: 'underline'}}>visa</span>
+                                        <span> sorted.</span>
+                                    </div>
                                 </div>
                                 
                                 <div className="visa-question">
@@ -861,14 +939,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="visa-message">
                                     <div className="visa-title">
                                         <span>You landed the job! <br/></span>
@@ -944,14 +1034,26 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
                             onBack={goBack} 
                         />
+                        {/* Mobile Header */}
+                        <MobileHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
                                 <div className="visa-message">
                                     <div className="visa-title">
                                         <span>You landed the job! <br/></span>
@@ -1025,8 +1127,27 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                        />
+                        {/* Mobile Header */}
+                        <MobileHeaderCompleted 
+                            onClose={closeView} 
+                        />
                         <div className="visa-content">
                             <div className="visa-left">
+                                {/* Mobile Image - Only visible on mobile */}
+                                <Image 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                    width={296}
+                                    height={122}
+                                />
+                                
                                 <div className="visa-message">
                                     <div className="visa-title">All done, your cancellation's <br/>been processed.</div>
                                 </div>
@@ -1064,11 +1185,15 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="visa-container">
+                        {/* Desktop Header */}
                         <SurveyHeader 
                             step={3} 
                             totalSteps={3} 
                             onClose={closeView} 
-                            onBack={goBack} 
+                        />
+                        {/* Mobile Header */}
+                        <MobileHeaderCompleted 
+                            onClose={closeView} 
                         />
                         <div className="visa-content">
                             <div className="visa-left">
