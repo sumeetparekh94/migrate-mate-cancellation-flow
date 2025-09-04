@@ -8,7 +8,7 @@ This is a subscription cancellation flow application for Migrate Mate built with
 - **A/B testing functionality** with two variants (A: no downsell, B: $10 off offer)
 - **Data persistence** using Supabase for storing cancellation records and user interactions
 - **Responsive design** that works seamlessly on both mobile and desktop devices
-- **Security features** including Row-Level Security (RLS) policies and input validation
+- **Security features** input validation and not exposing/using the supabase anon key
 
 The cancellation flow allows users to cancel their subscription while providing opportunities to retain them through targeted offers and reason collection for business insights.
 

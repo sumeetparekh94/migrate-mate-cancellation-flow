@@ -1330,10 +1330,33 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             onClose={closeView}
                             onBack={goBack}
                         />
+
+                        {/* Mobile Header - Only visible on mobile */}
+                        <div className="offer-declined-mobile-header">
+                            <button className="offer-declined-mobile-close" onClick={closeView}></button>
+                            <div className="offer-declined-mobile-content">
+                                <div className="offer-declined-mobile-title">Subscription Cancellation</div>
+                                <div className="offer-declined-mobile-progress">
+                                    <div className="offer-declined-mobile-dots">
+                                        <div className="offer-declined-mobile-dot completed"></div>
+                                        <div className="offer-declined-mobile-dot pending"></div>
+                                        <div className="offer-declined-mobile-dot pending"></div>
+                                    </div>
+                                    <div className="offer-declined-mobile-step-text">Step 2 of 3</div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="offer-declined-content">
                             <div className="offer-declined-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
+
                                 <div className="offer-declined-message">
-                                    <div className="offer-declined-title">Help us understand how you <br />were using Migrate Mate.</div>
+                                    <div className="offer-declined-title">What's the main reason for cancelling?</div>
                                 </div>
 
                                 <div className="offer-declined-questions">
@@ -1463,8 +1486,31 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             onClose={closeView}
                             onBack={goBack}
                         />
+
+                        {/* Mobile Header - Only visible on mobile */}
+                        <div className="cancellation-reason-mobile-header">
+                            <button className="cancellation-reason-mobile-close" onClick={closeView}></button>
+                            <div className="cancellation-reason-mobile-content">
+                                <div className="cancellation-reason-mobile-title">Subscription Cancellation</div>
+                                <div className="cancellation-reason-mobile-progress">
+                                    <div className="cancellation-reason-mobile-dots">
+                                        <div className="cancellation-reason-mobile-dot completed"></div>
+                                        <div className="cancellation-reason-mobile-dot completed"></div>
+                                        <div className="cancellation-reason-mobile-dot pending"></div>
+                                    </div>
+                                    <div className="cancellation-reason-mobile-step-text">Step 3 of 3</div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="cancellation-reason-content">
                             <div className="cancellation-reason-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
+
                                 <div className="cancellation-reason-message">
                                     <div className="cancellation-reason-title">What&apos;s the main <br />reason for cancelling?</div>
                                     <div className="cancellation-reason-subtitle">Please take a minute to let us know why:</div>
@@ -1532,8 +1578,8 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                         }])}
                                     >
                                         <div className="cancellation-accept-text">
-                                            <span className="cancellation-accept-main">Get $10 off | $ {monthlyPrice / 100}  </span>
-                                            <span className="cancellation-accept-strikethrough">${(monthlyPrice / 100) - 10}</span>
+                                            <span className="cancellation-accept-main">Get 50% off | $12.50 </span>
+                                            <span className="cancellation-accept-strikethrough">$25</span>
                                         </div>
                                     </button>}
                                     <button
@@ -1673,11 +1719,34 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             onClose={closeView}
                             onBack={goBack}
                         />
+
+                        {/* Mobile Header - Only visible on mobile */}
+                        <div className="reason-platform-not-helpful-mobile-header">
+                            <button className="reason-platform-not-helpful-mobile-close" onClick={closeView}></button>
+                            <div className="reason-platform-not-helpful-mobile-content">
+                                <div className="reason-platform-not-helpful-mobile-title">Subscription Cancellation</div>
+                                <div className="reason-platform-not-helpful-mobile-progress">
+                                    <div className="reason-platform-not-helpful-mobile-dots">
+                                        <div className="reason-platform-not-helpful-mobile-dot completed"></div>
+                                        <div className="reason-platform-not-helpful-mobile-dot completed"></div>
+                                        <div className="reason-platform-not-helpful-mobile-dot pending"></div>
+                                    </div>
+                                    <div className="reason-platform-not-helpful-mobile-step-text">Step 3 of 3</div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="reason-platform-not-helpful-content">
                             <div className="reason-platform-not-helpful-left">
+                                {/* Mobile Back Button - Only visible on mobile */}
+                                <div className="mobile-back-button" onClick={goBack}>
+                                    <div className="mobile-back-arrow"></div>
+                                    <div className="mobile-back-text">Back</div>
+                                </div>
+
                                 <div className="reason-platform-not-helpful-main-container">
                                     <div className="reason-platform-not-helpful-message">
-                                        <div className="reason-platform-not-helpful-title">What&apos;s the main reason?</div>
+                                        <div className="reason-platform-not-helpful-title">What&apos;s the main reason for cancelling?</div>
                                         <div className="reason-platform-not-helpful-subtitle">Please take a minute to let us know why:</div>
                                     </div>
 
@@ -1689,7 +1758,6 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                             <div className="reason-platform-not-helpful-option-text">Platform not helpful</div>
                                         </div>
                                         <div className="reason-platform-not-helpful-question-text">What can we change to make the platform more helpful?*</div>
-                                        <div className="reason-platform-not-helpful-requirement-text">Please enter at least 25 characters so we can understand your feedback*</div>
                                         <div className="reason-platform-not-helpful-textarea-container">
                                             <textarea
                                                 className="reason-platform-not-helpful-textarea"
