@@ -54,6 +54,18 @@ function SurveyHeader({
     );
 }
 
+// Simple header component for offer-accepted screen
+function SimpleHeader({ onClose }: { onClose: () => void }) {
+    return (
+        <div className="simple-header">
+            <button className="simple-close-btn" onClick={onClose}></button>
+            <div className="simple-header-content">
+                <div className="simple-title">Subscription</div>
+            </div>
+        </div>
+    );
+}
+
 type CancelFlowState = {
     screen: "0",
     foundJob: boolean | undefined,
@@ -91,7 +103,19 @@ type CancelFlowState = {
 } | {
     screen: "help-with-visa",
 } | {
-    screen: "1-no-flow"
+    screen: "1-no-flow",
+} | {
+    screen: "offer-accepted",
+} | {
+    screen: "offer-declined",
+    rolesApplied: string | undefined,
+    companiesEmailed: string | undefined,
+    companiesInterviewed: string | undefined,
+    continueClicked: boolean,
+} | {
+    screen: "cancellation-reason",
+    reason: string | undefined,
+    continueClicked: boolean,
 };
 
 function getNextScreen(state: CancelFlowState): CancelFlowState {
@@ -1074,7 +1098,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                     </div>
                                     <div className="discount-actions">
-                                        <button className="discount-accept-btn">
+                                        <button 
+                                            className="discount-accept-btn"
+                                            onClick={() => setState([...state, {
+                                                screen: "offer-accepted",
+                                            }])}
+                                        >
                                             <div className="discount-accept-text">Get 50% off</div>
                                         </button>
                                         <div className="discount-note">You wont be charged until your next billing date.</div>
@@ -1082,7 +1111,16 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 </div>
                                 
                                 <div className="discount-decline-section">
-                                    <button className="discount-decline-btn" onClick={closeView}>
+                                    <button 
+                                        className="discount-decline-btn" 
+                                        onClick={() => setState([...state, {
+                                            screen: "offer-declined",
+                                            rolesApplied: undefined,
+                                            companiesEmailed: undefined,
+                                            companiesInterviewed: undefined,
+                                            continueClicked: false,
+                                        }])}
+                                    >
                                         <div className="discount-decline-text">No thanks</div>
                                     </button>
                                 </div>
@@ -1093,6 +1131,269 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="discount-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "offer-accepted") {
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="offer-accepted-container">
+                        <SimpleHeader onClose={closeView} />
+                        <div className="offer-accepted-content">
+                            <div className="offer-accepted-left">
+                                <div className="offer-accepted-message">
+                                    <div className="offer-accepted-title">
+                                        <span className="offer-title-line1">Great choice, mate!<br/></span>
+                                        <span className="offer-title-line2">You're still on the path to your dream role. </span>
+                                        <span className="offer-title-highlight">Let's make it happen together!</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="offer-accepted-details">
+                                    <span className="offer-details-main">You've got XX days left on your current plan.    Starting from XX date, your monthly payment will be $12.50.<br/><br/></span>
+                                    <span className="offer-details-note">You can cancel anytime before then.</span>
+                                </div>
+                                
+                                <div className="offer-accepted-actions">
+                                    <div className="offer-actions-container">
+                                        <div className="offer-actions-content">
+                                            <button className="offer-cta-btn">
+                                                <div className="offer-cta-text">Land your dream role</div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="offer-accepted-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="offer-accepted-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "offer-declined") {
+        const canContinue = latestState.rolesApplied !== undefined &&
+            latestState.companiesEmailed !== undefined &&
+            latestState.companiesInterviewed !== undefined;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="offer-declined-container">
+                        <SurveyHeader 
+                            step={2} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="offer-declined-content">
+                            <div className="offer-declined-left">
+                                <div className="offer-declined-message">
+                                    <div className="offer-declined-title">Help us understand how you <br/>were using Migrate Mate.</div>
+                                </div>
+                                
+                                <div className="offer-declined-questions">
+                                    {/* Question 1 */}
+                                    <div className="offer-question-group">
+                                        <div className="offer-question-text">
+                                            <span className="offer-question-normal">How many roles did you </span>
+                                            <span className="offer-question-underline">apply</span>
+                                            <span className="offer-question-normal"> for through Migrate Mate?</span>
+                                        </div>
+                                        <div className="offer-radio-options">
+                                            {['0', '1-5', '6-20', '20+'].map((option) => (
+                                                <button 
+                                                    key={option}
+                                                    className={`offer-radio-option ${latestState.rolesApplied === option ? 'selected' : ''}`}
+                                                    onClick={() => setState([...state, {
+                                                        ...latestState,
+                                                        rolesApplied: option,
+                                                    }])}
+                                                >
+                                                    <div className="offer-radio-text">{option}</div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Question 2 */}
+                                    <div className="offer-question-group">
+                                        <div className="offer-question-text">
+                                            <span className="offer-question-normal">How many companies did you </span>
+                                            <span className="offer-question-underline">email</span>
+                                            <span className="offer-question-normal"> directly?</span>
+                                        </div>
+                                        <div className="offer-radio-options">
+                                            {['0', '1-5', '6-20', '20+'].map((option) => (
+                                                <button 
+                                                    key={option}
+                                                    className={`offer-radio-option ${latestState.companiesEmailed === option ? 'selected' : ''}`}
+                                                    onClick={() => setState([...state, {
+                                                        ...latestState,
+                                                        companiesEmailed: option,
+                                                    }])}
+                                                >
+                                                    <div className="offer-radio-text">{option}</div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Question 3 */}
+                                    <div className="offer-question-group">
+                                        <div className="offer-question-text">
+                                            <span className="offer-question-normal">How many different companies did you </span>
+                                            <span className="offer-question-underline">interview</span>
+                                            <span className="offer-question-normal"> with?</span>
+                                        </div>
+                                        <div className="offer-radio-options">
+                                            {['0', '1-2', '3-5', '5+'].map((option) => (
+                                                <button 
+                                                    key={option}
+                                                    className={`offer-radio-option ${latestState.companiesInterviewed === option ? 'selected' : ''}`}
+                                                    onClick={() => setState([...state, {
+                                                        ...latestState,
+                                                        companiesInterviewed: option,
+                                                    }])}
+                                                >
+                                                    <div className="offer-radio-text">{option}</div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="offer-declined-actions">
+                                    <button 
+                                        className="offer-accept-btn"
+                                        onClick={() => setState([...state, {
+                                            screen: "offer-accepted",
+                                        }])}
+                                    >
+                                        <div className="offer-accept-text">
+                                            <span className="offer-accept-main">Get 50% off | $12.50 </span>
+                                            <span className="offer-accept-strikethrough">$25</span>
+                                        </div>
+                                    </button>
+                                    <button 
+                                        className={`offer-continue-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                        disabled={!canContinue}
+                                        onClick={() => {
+                                            if (canContinue) {
+                                                setState([...state, {
+                                                    screen: "cancellation-reason",
+                                                    reason: undefined,
+                                                    continueClicked: false,
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="offer-continue-text">Continue</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="offer-declined-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="offer-declined-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "cancellation-reason") {
+        const canContinue = latestState.reason !== undefined;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="cancellation-reason-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="cancellation-reason-content">
+                            <div className="cancellation-reason-left">
+                                <div className="cancellation-reason-message">
+                                    <div className="cancellation-reason-title">What's the main <br/>reason for cancelling?</div>
+                                    <div className="cancellation-reason-subtitle">Please take a minute to let us know why:</div>
+                                </div>
+                                
+                                <div className="cancellation-reason-options">
+                                    {[
+                                        "Too expensive",
+                                        "Platform not helpful", 
+                                        "Not enough relevant jobs",
+                                        "Decided not to move",
+                                        "Other"
+                                    ].map((option) => (
+                                        <div 
+                                            key={option}
+                                            className={`cancellation-reason-option ${latestState.reason === option ? 'selected' : ''}`}
+                                            onClick={() => setState([...state, {
+                                                ...latestState,
+                                                reason: option,
+                                            }])}
+                                        >
+                                            <div className="cancellation-reason-radio">
+                                                <div className={`cancellation-reason-radio-circle ${latestState.reason === option ? 'selected' : ''}`}></div>
+                                            </div>
+                                            <div className="cancellation-reason-text">{option}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                <div className="cancellation-reason-actions">
+                                    <button 
+                                        className="cancellation-accept-btn"
+                                        onClick={() => setState([...state, {
+                                            screen: "offer-accepted",
+                                        }])}
+                                    >
+                                        <div className="cancellation-accept-text">
+                                            <span className="cancellation-accept-main">Get 50% off | $12.50 </span>
+                                            <span className="cancellation-accept-strikethrough">$25</span>
+                                        </div>
+                                    </button>
+                                    <button 
+                                        className={`cancellation-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                        disabled={!canContinue}
+                                        onClick={() => {
+                                            if (canContinue) {
+                                                setState([...state, {
+                                                    ...latestState,
+                                                    continueClicked: true,
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="cancellation-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="cancellation-reason-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="cancellation-reason-image"
                                 />
                             </div>
                         </div>
