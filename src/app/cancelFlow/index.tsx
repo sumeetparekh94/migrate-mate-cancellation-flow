@@ -120,6 +120,24 @@ type CancelFlowState = {
     screen: "reason-too-expensive",
     maxPrice: string | undefined,
     continueClicked: boolean,
+} | {
+    screen: "reason-platform-not-helpful",
+    feedback: string | undefined,
+    continueClicked: boolean,
+} | {
+    screen: "reason-not-enough-jobs",
+    feedback: string | undefined,
+    continueClicked: boolean,
+} | {
+    screen: "reason-not-moving",
+    feedback: string | undefined,
+    continueClicked: boolean,
+} | {
+    screen: "reason-other",
+    feedback: string | undefined,
+    continueClicked: boolean,
+} | {
+    screen: "cancellation-complete-after-reason",
 };
 
 function getNextScreen(state: CancelFlowState): CancelFlowState {
@@ -1358,6 +1376,30 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                                         maxPrice: undefined,
                                                         continueClicked: false,
                                                     }]);
+                                                } else if (option === "Platform not helpful") {
+                                                    setState([...state, {
+                                                        screen: "reason-platform-not-helpful",
+                                                        feedback: undefined,
+                                                        continueClicked: false,
+                                                    }]);
+                                                } else if (option === "Not enough relevant jobs") {
+                                                    setState([...state, {
+                                                        screen: "reason-not-enough-jobs",
+                                                        feedback: undefined,
+                                                        continueClicked: false,
+                                                    }]);
+                                                } else if (option === "Decided not to move") {
+                                                    setState([...state, {
+                                                        screen: "reason-not-moving",
+                                                        feedback: undefined,
+                                                        continueClicked: false,
+                                                    }]);
+                                                } else if (option === "Other") {
+                                                    setState([...state, {
+                                                        screen: "reason-other",
+                                                        feedback: undefined,
+                                                        continueClicked: false,
+                                                    }]);
                                                 } else {
                                                     setState([...state, {
                                                         ...latestState,
@@ -1477,8 +1519,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             onClick={() => {
                                                 if (canContinue) {
                                                     setState([...state, {
-                                                        ...latestState,
-                                                        continueClicked: true,
+                                                        screen: "cancellation-complete-after-reason",
                                                     }]);
                                                 }
                                             }}
@@ -1494,6 +1535,393 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     src="/empire-state-compressed.jpg" 
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-too-expensive-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "reason-platform-not-helpful") {
+        const canContinue = latestState.feedback !== undefined && latestState.feedback.length >= 25;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="reason-platform-not-helpful-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="reason-platform-not-helpful-content">
+                            <div className="reason-platform-not-helpful-left">
+                                <div className="reason-platform-not-helpful-main-container">
+                                    <div className="reason-platform-not-helpful-message">
+                                        <div className="reason-platform-not-helpful-title">What's the main reason?</div>
+                                        <div className="reason-platform-not-helpful-subtitle">Please take a minute to let us know why:</div>
+                                    </div>
+                                    
+                                    <div className="reason-platform-not-helpful-option-section">
+                                        <div className="reason-platform-not-helpful-option-content">
+                                            <div className="reason-platform-not-helpful-radio">
+                                                <div className="reason-platform-not-helpful-radio-circle selected"></div>
+                                            </div>
+                                            <div className="reason-platform-not-helpful-option-text">Platform not helpful</div>
+                                        </div>
+                                        <div className="reason-platform-not-helpful-question-text">What can we change to make the platform more helpful?*</div>
+                                        <div className="reason-platform-not-helpful-requirement-text">Please enter at least 25 characters so we can understand your feedback*</div>
+                                        <div className="reason-platform-not-helpful-textarea-container">
+                                            <textarea
+                                                className="reason-platform-not-helpful-textarea"
+                                                placeholder=""
+                                                value={latestState.feedback || ''}
+                                                onChange={(e) => setState([...state, {
+                                                    ...latestState,
+                                                    feedback: e.target.value,
+                                                }])}
+                                            />
+                                            <div className="reason-platform-not-helpful-character-counter">
+                                                Min 25 characters ({latestState.feedback?.length || 0}/25)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="reason-platform-not-helpful-actions">
+                                        <button 
+                                            className="reason-platform-not-helpful-accept-btn"
+                                            onClick={() => setState([...state, {
+                                                screen: "offer-accepted",
+                                            }])}
+                                        >
+                                            <div className="reason-platform-not-helpful-accept-text">
+                                                <span className="reason-platform-not-helpful-accept-main">Get 50% off | $12.50 </span>
+                                                <span className="reason-platform-not-helpful-accept-strikethrough">$25</span>
+                                            </div>
+                                        </button>
+                                        <button 
+                                            className={`reason-platform-not-helpful-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                            disabled={!canContinue}
+                                            onClick={() => {
+                                                if (canContinue) {
+                                                    setState([...state, {
+                                                        screen: "cancellation-complete-after-reason",
+                                                    }]);
+                                                }
+                                            }}
+                                        >
+                                            <div className="reason-platform-not-helpful-complete-text">Complete cancellation</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="reason-platform-not-helpful-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="reason-platform-not-helpful-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "reason-not-enough-jobs") {
+        const canContinue = latestState.feedback !== undefined && latestState.feedback.length >= 25;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="reason-not-enough-jobs-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="reason-not-enough-jobs-content">
+                            <div className="reason-not-enough-jobs-left">
+                                <div className="reason-not-enough-jobs-main-container">
+                                    <div className="reason-not-enough-jobs-message">
+                                        <div className="reason-not-enough-jobs-title">What's the main reason?</div>
+                                        <div className="reason-not-enough-jobs-subtitle">Please take a minute to let us know why:</div>
+                                    </div>
+                                    
+                                    <div className="reason-not-enough-jobs-option-section">
+                                        <div className="reason-not-enough-jobs-option-content">
+                                            <div className="reason-not-enough-jobs-radio">
+                                                <div className="reason-not-enough-jobs-radio-circle selected"></div>
+                                            </div>
+                                            <div className="reason-not-enough-jobs-option-text">Not enough relevant jobs</div>
+                                        </div>
+                                        <div className="reason-not-enough-jobs-question-text">In which way can we make the jobs more relevant?*</div>
+                                        <div className="reason-not-enough-jobs-textarea-container">
+                                            <textarea
+                                                className="reason-not-enough-jobs-textarea"
+                                                placeholder=""
+                                                value={latestState.feedback || ''}
+                                                onChange={(e) => setState([...state, {
+                                                    ...latestState,
+                                                    feedback: e.target.value,
+                                                }])}
+                                            />
+                                            <div className="reason-not-enough-jobs-character-counter">
+                                                Min 25 characters ({latestState.feedback?.length || 0}/25)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="reason-not-enough-jobs-actions">
+                                        <button 
+                                            className="reason-not-enough-jobs-accept-btn"
+                                            onClick={() => setState([...state, {
+                                                screen: "offer-accepted",
+                                            }])}
+                                        >
+                                            <div className="reason-not-enough-jobs-accept-text">
+                                                <span className="reason-not-enough-jobs-accept-main">Get 50% off | $12.50 </span>
+                                                <span className="reason-not-enough-jobs-accept-strikethrough">$25</span>
+                                            </div>
+                                        </button>
+                                        <button 
+                                            className={`reason-not-enough-jobs-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                            disabled={!canContinue}
+                                            onClick={() => {
+                                                if (canContinue) {
+                                                    setState([...state, {
+                                                        screen: "cancellation-complete-after-reason",
+                                                    }]);
+                                                }
+                                            }}
+                                        >
+                                            <div className="reason-not-enough-jobs-complete-text">Complete cancellation</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="reason-not-enough-jobs-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="reason-not-enough-jobs-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "reason-not-moving") {
+        const canContinue = latestState.feedback !== undefined && latestState.feedback.length >= 25;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="reason-not-moving-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="reason-not-moving-content">
+                            <div className="reason-not-moving-left">
+                                <div className="reason-not-moving-main-container">
+                                    <div className="reason-not-moving-message">
+                                        <div className="reason-not-moving-title">What's the main reason?</div>
+                                        <div className="reason-not-moving-subtitle">Please take a minute to let us know why:</div>
+                                    </div>
+                                    
+                                    <div className="reason-not-moving-option-section">
+                                        <div className="reason-not-moving-option-content">
+                                            <div className="reason-not-moving-radio">
+                                                <div className="reason-not-moving-radio-circle selected"></div>
+                                            </div>
+                                            <div className="reason-not-moving-option-text">Decided not to move</div>
+                                        </div>
+                                        <div className="reason-not-moving-question-text">What changed for you to decide to not move?*</div>
+                                        <div className="reason-not-moving-textarea-container">
+                                            <textarea
+                                                className="reason-not-moving-textarea"
+                                                placeholder=""
+                                                value={latestState.feedback || ''}
+                                                onChange={(e) => setState([...state, {
+                                                    ...latestState,
+                                                    feedback: e.target.value,
+                                                }])}
+                                            />
+                                            <div className="reason-not-moving-character-counter">
+                                                Min 25 characters ({latestState.feedback?.length || 0}/25)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="reason-not-moving-actions">
+                                        <button 
+                                            className="reason-not-moving-accept-btn"
+                                            onClick={() => setState([...state, {
+                                                screen: "offer-accepted",
+                                            }])}
+                                        >
+                                            <div className="reason-not-moving-accept-text">
+                                                <span className="reason-not-moving-accept-main">Get 50% off | $12.50 </span>
+                                                <span className="reason-not-moving-accept-strikethrough">$25</span>
+                                            </div>
+                                        </button>
+                                        <button 
+                                            className={`reason-not-moving-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                            disabled={!canContinue}
+                                            onClick={() => {
+                                                if (canContinue) {
+                                                    setState([...state, {
+                                                        screen: "cancellation-complete-after-reason",
+                                                    }]);
+                                                }
+                                            }}
+                                        >
+                                            <div className="reason-not-moving-complete-text">Complete cancellation</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="reason-not-moving-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="reason-not-moving-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "reason-other") {
+        const canContinue = latestState.feedback !== undefined && latestState.feedback.length >= 25;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="reason-other-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="reason-other-content">
+                            <div className="reason-other-left">
+                                <div className="reason-other-main-container">
+                                    <div className="reason-other-message">
+                                        <div className="reason-other-title">What's the main reason?</div>
+                                        <div className="reason-other-subtitle">Please take a minute to let us know why:</div>
+                                    </div>
+                                    
+                                    <div className="reason-other-option-section">
+                                        <div className="reason-other-option-content">
+                                            <div className="reason-other-radio">
+                                                <div className="reason-other-radio-circle selected"></div>
+                                            </div>
+                                            <div className="reason-other-option-text">Other</div>
+                                        </div>
+                                        <div className="reason-other-question-text">What would have helped you the most?*</div>
+                                        <div className="reason-other-textarea-container">
+                                            <textarea
+                                                className="reason-other-textarea"
+                                                placeholder=""
+                                                value={latestState.feedback || ''}
+                                                onChange={(e) => setState([...state, {
+                                                    ...latestState,
+                                                    feedback: e.target.value,
+                                                }])}
+                                            />
+                                            <div className="reason-other-character-counter">
+                                                Min 25 characters ({latestState.feedback?.length || 0}/25)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="reason-other-actions">
+                                        <button 
+                                            className="reason-other-accept-btn"
+                                            onClick={() => setState([...state, {
+                                                screen: "offer-accepted",
+                                            }])}
+                                        >
+                                            <div className="reason-other-accept-text">
+                                                <span className="reason-other-accept-main">Get 50% off | $12.50 </span>
+                                                <span className="reason-other-accept-strikethrough">$25</span>
+                                            </div>
+                                        </button>
+                                        <button 
+                                            className={`reason-other-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
+                                            disabled={!canContinue}
+                                            onClick={() => {
+                                                if (canContinue) {
+                                                    setState([...state, {
+                                                        screen: "cancellation-complete-after-reason",
+                                                    }]);
+                                                }
+                                            }}
+                                        >
+                                            <div className="reason-other-complete-text">Complete cancellation</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="reason-other-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="reason-other-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "cancellation-complete-after-reason") {
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="cancellation-complete-after-reason-container">
+                        <div className="cancellation-complete-after-reason-content">
+                            <div className="cancellation-complete-after-reason-left">
+                                <div className="cancellation-complete-after-reason-main-container">
+                                    <div className="cancellation-complete-after-reason-message">
+                                        <div className="cancellation-complete-after-reason-title">
+                                            <span className="cancellation-complete-after-reason-title-line1">Sorry to see you go, mate.<br/></span>
+                                            <span className="cancellation-complete-after-reason-title-line2">Thanks for being with us, and you're always welcome back.</span>
+                                        </div>
+                                        <div className="cancellation-complete-after-reason-subtitle">
+                                            <span className="cancellation-complete-after-reason-subtitle-bold">Your subscription is set to end on XX date. You'll still have full access until then. No further charges after that.<br/><br/></span>
+                                            <span className="cancellation-complete-after-reason-subtitle-normal">Changed your mind? You can reactivate anytime before your end date.</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="cancellation-complete-after-reason-actions">
+                                        <button 
+                                            className="cancellation-complete-after-reason-back-btn"
+                                            onClick={closeView}
+                                        >
+                                            <div className="cancellation-complete-after-reason-back-text">Back to Jobs</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="cancellation-complete-after-reason-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="cancellation-complete-after-reason-image"
                                 />
                             </div>
                         </div>

@@ -2624,3 +2624,1375 @@ div {
     object-position: center;
     border-radius: 12px;
 }
+
+/* Reason Platform Not Helpful Screen Styles */
+.reason-platform-not-helpful-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reason-platform-not-helpful-content {
+    width: 1000px;
+    padding: 20px;
+    background: white;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-platform-not-helpful-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-platform-not-helpful-main-container {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-platform-not-helpful-message {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    display: flex;
+}
+
+.reason-platform-not-helpful-title {
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-platform-not-helpful-subtitle {
+    width: 368px;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-platform-not-helpful-option-section {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.reason-platform-not-helpful-option-content {
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+}
+
+.reason-platform-not-helpful-radio {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+}
+
+.reason-platform-not-helpful-radio-circle {
+    flex: 1 1 0;
+    align-self: stretch;
+    border-radius: 9999px;
+    border: 1px #41403D solid;
+}
+
+.reason-platform-not-helpful-radio-circle.selected {
+    background: #41403D;
+    border-color: #41403D;
+}
+
+.reason-platform-not-helpful-option-text {
+    flex: 1 1 0;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-platform-not-helpful-question-text {
+    width: 100%;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reason-platform-not-helpful-requirement-text {
+    width: 100%;
+    color: #DC2626;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reason-platform-not-helpful-textarea-container {
+    align-self: stretch;
+    height: 150px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px #62605C solid;
+    outline-offset: -1px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    display: inline-flex;
+    position: relative;
+}
+
+.reason-platform-not-helpful-textarea {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #41403D;
+    line-height: 1.4;
+}
+
+.reason-platform-not-helpful-textarea::placeholder {
+    color: #B5B3AF;
+}
+
+.reason-platform-not-helpful-character-counter {
+    width: 139px;
+    height: 12px;
+    text-align: right;
+    color: #62605C;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.reason-platform-not-helpful-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.reason-platform-not-helpful-accept-btn {
+    align-self: stretch;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4ABF71;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-platform-not-helpful-accept-btn:hover {
+    background: #3a9d5f;
+}
+
+.reason-platform-not-helpful-accept-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.reason-platform-not-helpful-accept-main {
+    color: white;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-platform-not-helpful-accept-strikethrough {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-decoration: line-through;
+    line-height: 12px;
+    word-wrap: break-word;
+}
+
+.reason-platform-not-helpful-complete-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #E6E6E6;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-platform-not-helpful-complete-btn.enabled {
+    background: #41403D;
+}
+
+.reason-platform-not-helpful-complete-btn.enabled:hover {
+    background: #2a2926;
+}
+
+.reason-platform-not-helpful-complete-btn:disabled {
+    cursor: not-allowed;
+}
+
+.reason-platform-not-helpful-complete-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #B5B3AF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-platform-not-helpful-complete-btn.enabled .reason-platform-not-helpful-complete-text {
+    color: white;
+}
+
+.reason-platform-not-helpful-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.reason-platform-not-helpful-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+/* Reason Not Enough Jobs Styles */
+.reason-not-enough-jobs-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reason-not-enough-jobs-content {
+    width: 1000px;
+    padding: 20px;
+    background: white;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-not-enough-jobs-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-not-enough-jobs-main-container {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-not-enough-jobs-message {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    display: flex;
+}
+
+.reason-not-enough-jobs-title {
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-not-enough-jobs-subtitle {
+    width: 368px;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-not-enough-jobs-option-section {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.reason-not-enough-jobs-option-content {
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+}
+
+.reason-not-enough-jobs-radio {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+}
+
+.reason-not-enough-jobs-radio-circle {
+    flex: 1 1 0;
+    align-self: stretch;
+    border-radius: 9999px;
+    border: 1px #41403D solid;
+}
+
+.reason-not-enough-jobs-radio-circle.selected {
+    background: #41403D;
+    border-color: #41403D;
+}
+
+.reason-not-enough-jobs-option-text {
+    flex: 1 1 0;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-not-enough-jobs-question-text {
+    width: 100%;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reason-not-enough-jobs-textarea-container {
+    align-self: stretch;
+    height: 150px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px #62605C solid;
+    outline-offset: -1px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    display: inline-flex;
+    position: relative;
+}
+
+.reason-not-enough-jobs-textarea {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #41403D;
+    line-height: 1.4;
+}
+
+.reason-not-enough-jobs-textarea::placeholder {
+    color: #B5B3AF;
+}
+
+.reason-not-enough-jobs-character-counter {
+    width: 139px;
+    height: 12px;
+    text-align: right;
+    color: #62605C;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.reason-not-enough-jobs-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.reason-not-enough-jobs-accept-btn {
+    align-self: stretch;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4ABF71;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-not-enough-jobs-accept-btn:hover {
+    background: #3a9d5f;
+}
+
+.reason-not-enough-jobs-accept-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.reason-not-enough-jobs-accept-main {
+    color: white;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-not-enough-jobs-accept-strikethrough {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-decoration: line-through;
+    line-height: 12px;
+    word-wrap: break-word;
+}
+
+.reason-not-enough-jobs-complete-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #E6E6E6;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-not-enough-jobs-complete-btn.enabled {
+    background: #41403D;
+}
+
+.reason-not-enough-jobs-complete-btn.enabled:hover {
+    background: #2a2926;
+}
+
+.reason-not-enough-jobs-complete-btn:disabled {
+    cursor: not-allowed;
+}
+
+.reason-not-enough-jobs-complete-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #B5B3AF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-not-enough-jobs-complete-btn.enabled .reason-not-enough-jobs-complete-text {
+    color: white;
+}
+
+.reason-not-enough-jobs-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.reason-not-enough-jobs-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+/* Reason Not Moving Styles */
+.reason-not-moving-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reason-not-moving-content {
+    width: 1000px;
+    padding: 20px;
+    background: white;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-not-moving-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-not-moving-main-container {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-not-moving-message {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    display: flex;
+}
+
+.reason-not-moving-title {
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-not-moving-subtitle {
+    width: 368px;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-not-moving-option-section {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.reason-not-moving-option-content {
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+}
+
+.reason-not-moving-radio {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+}
+
+.reason-not-moving-radio-circle {
+    flex: 1 1 0;
+    align-self: stretch;
+    border-radius: 9999px;
+    border: 1px #41403D solid;
+}
+
+.reason-not-moving-radio-circle.selected {
+    background: #41403D;
+    border-color: #41403D;
+}
+
+.reason-not-moving-option-text {
+    flex: 1 1 0;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-not-moving-question-text {
+    width: 100%;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reason-not-moving-textarea-container {
+    align-self: stretch;
+    height: 150px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px #62605C solid;
+    outline-offset: -1px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    display: inline-flex;
+    position: relative;
+}
+
+.reason-not-moving-textarea {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #41403D;
+    line-height: 1.4;
+}
+
+.reason-not-moving-textarea::placeholder {
+    color: #B5B3AF;
+}
+
+.reason-not-moving-character-counter {
+    width: 139px;
+    height: 12px;
+    text-align: right;
+    color: #62605C;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.reason-not-moving-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.reason-not-moving-accept-btn {
+    align-self: stretch;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4ABF71;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-not-moving-accept-btn:hover {
+    background: #3a9d5f;
+}
+
+.reason-not-moving-accept-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.reason-not-moving-accept-main {
+    color: white;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-not-moving-accept-strikethrough {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-decoration: line-through;
+    line-height: 12px;
+    word-wrap: break-word;
+}
+
+.reason-not-moving-complete-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #E6E6E6;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-not-moving-complete-btn.enabled {
+    background: #41403D;
+}
+
+.reason-not-moving-complete-btn.enabled:hover {
+    background: #2a2926;
+}
+
+.reason-not-moving-complete-btn:disabled {
+    cursor: not-allowed;
+}
+
+.reason-not-moving-complete-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #B5B3AF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-not-moving-complete-btn.enabled .reason-not-moving-complete-text {
+    color: white;
+}
+
+.reason-not-moving-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.reason-not-moving-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+/* Reason Other Styles */
+.reason-other-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reason-other-content {
+    width: 1000px;
+    padding: 20px;
+    background: white;
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-other-left {
+    flex: 1 1 0;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-other-main-container {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.reason-other-message {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    display: flex;
+}
+
+.reason-other-title {
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-other-subtitle {
+    width: 368px;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-other-option-section {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.reason-other-option-content {
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+}
+
+.reason-other-radio {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+}
+
+.reason-other-radio-circle {
+    flex: 1 1 0;
+    align-self: stretch;
+    border-radius: 9999px;
+    border: 1px #41403D solid;
+}
+
+.reason-other-radio-circle.selected {
+    background: #41403D;
+    border-color: #41403D;
+}
+
+.reason-other-option-text {
+    flex: 1 1 0;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.reason-other-question-text {
+    width: 100%;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reason-other-textarea-container {
+    align-self: stretch;
+    height: 150px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px #62605C solid;
+    outline-offset: -1px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    display: inline-flex;
+    position: relative;
+}
+
+.reason-other-textarea {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #41403D;
+    line-height: 1.4;
+}
+
+.reason-other-textarea::placeholder {
+    color: #B5B3AF;
+}
+
+.reason-other-character-counter {
+    width: 139px;
+    height: 12px;
+    text-align: right;
+    color: #62605C;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.reason-other-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.reason-other-accept-btn {
+    align-self: stretch;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4ABF71;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-other-accept-btn:hover {
+    background: #3a9d5f;
+}
+
+.reason-other-accept-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.reason-other-accept-main {
+    color: white;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-other-accept-strikethrough {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-decoration: line-through;
+    line-height: 12px;
+    word-wrap: break-word;
+}
+
+.reason-other-complete-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #E6E6E6;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reason-other-complete-btn.enabled {
+    background: #41403D;
+}
+
+.reason-other-complete-btn.enabled:hover {
+    background: #2a2926;
+}
+
+.reason-other-complete-btn:disabled {
+    cursor: not-allowed;
+}
+
+.reason-other-complete-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #B5B3AF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.reason-other-complete-btn.enabled .reason-other-complete-text {
+    color: white;
+}
+
+.reason-other-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.reason-other-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+/* Cancellation Complete After Reason Styles */
+.cancellation-complete-after-reason-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cancellation-complete-after-reason-content {
+    width: 1000px;
+    padding: 20px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.cancellation-complete-after-reason-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.cancellation-complete-after-reason-main-container {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.cancellation-complete-after-reason-message {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: flex;
+}
+
+.cancellation-complete-after-reason-title {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.cancellation-complete-after-reason-title-line1 {
+    align-self: stretch;
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.cancellation-complete-after-reason-title-line2 {
+    align-self: stretch;
+    color: #41403D;
+    font-size: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.cancellation-complete-after-reason-subtitle {
+    width: 481px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+    display: flex;
+}
+
+.cancellation-complete-after-reason-subtitle-bold {
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.cancellation-complete-after-reason-subtitle-normal {
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.cancellation-complete-after-reason-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.cancellation-complete-after-reason-back-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #996EFF;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancellation-complete-after-reason-back-btn:hover {
+    background: #7c5ae8;
+}
+
+.cancellation-complete-after-reason-back-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.cancellation-complete-after-reason-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.cancellation-complete-after-reason-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
