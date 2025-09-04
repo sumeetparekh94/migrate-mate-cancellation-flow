@@ -1525,7 +1525,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 </div>
 
                                 <div className="cancellation-reason-actions">
-                                    <button
+                                    {downsellVariant === "B" && <button
                                         className="cancellation-accept-btn"
                                         onClick={() => setState([...state, {
                                             screen: "offer-accepted",
@@ -1535,7 +1535,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                             <span className="cancellation-accept-main">Get $10 off | $ {monthlyPrice / 100}  </span>
                                             <span className="cancellation-accept-strikethrough">${(monthlyPrice / 100) - 10}</span>
                                         </div>
-                                    </button>
+                                    </button>}
                                     <button
                                         className={`cancellation-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                         disabled={!canContinue}
