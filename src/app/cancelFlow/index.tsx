@@ -1074,7 +1074,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 <Image
                                     src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
-                                    className="visa-image"
+                                    className="visa-image mobile-only"
                                     width={296}
                                     height={122}
                                 />

@@ -45,7 +45,8 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    display: none; /* Hidden by default on desktop */
+    display: none;
+    /* Hidden by default on desktop */
 }
 
 /* Simple Mobile Header for Screen 0 (no progress steps) */
@@ -60,7 +61,8 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    display: none; /* Hidden by default on desktop */
+    display: none;
+    /* Hidden by default on desktop */
 }
 
 .mobile-header-content-simple {
@@ -77,7 +79,7 @@
     .survey-header {
         display: inline-flex !important;
     }
-    
+
     .mobile-header {
         display: none !important;
     }
@@ -177,7 +179,8 @@
 
 /* Mobile Back Button Styles */
 .mobile-back-button {
-    display: none; /* Hidden by default on desktop */
+    display: none;
+    /* Hidden by default on desktop */
     height: 10px;
     justify-content: flex-start;
     align-items: center;
@@ -229,7 +232,7 @@
         z-index: 1000;
         padding: 0;
     }
-    
+
     .popup-overlay {
         position: absolute;
         top: 0;
@@ -242,7 +245,7 @@
         align-items: center;
         padding: 0;
     }
-    
+
     .popup-container {
         width: 100%;
         height: 100vh;
@@ -258,7 +261,7 @@
         max-width: 100vw;
         overflow-x: hidden;
     }
-    
+
     .popup-header {
         width: 320px !important;
         height: 60px !important;
@@ -273,7 +276,7 @@
         display: inline-flex !important;
         align-self: center !important;
     }
-    
+
     .popup-title {
         flex: 1 1 0 !important;
         padding-left: 16px !important;
@@ -284,7 +287,7 @@
         gap: 8px !important;
         display: inline-flex !important;
     }
-    
+
     .popup-title-text {
         text-align: center !important;
         justify-content: center !important;
@@ -296,7 +299,7 @@
         font-weight: 600 !important;
         word-wrap: break-word !important;
     }
-    
+
     .close-btn {
         width: 24px !important;
         height: 24px !important;
@@ -311,7 +314,7 @@
         align-items: center !important;
         justify-content: center !important;
     }
-    
+
     .close-btn::before {
         content: '';
         width: 11.90px !important;
@@ -322,7 +325,7 @@
         background: #62605C !important;
         clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%) !important;
     }
-    
+
     .popup-content {
         align-self: stretch;
         padding-left: 12px;
@@ -336,14 +339,14 @@
         max-width: 100%;
         overflow: hidden;
     }
-    
+
     .popup-left {
         width: 100%;
         gap: 12px;
         max-width: 100%;
         overflow: hidden;
     }
-    
+
     .popup-right {
         width: 296px;
         height: 122px;
@@ -353,14 +356,14 @@
         order: -1;
         align-self: center;
     }
-    
+
     .skyline-image {
         width: 296px;
         height: 122px;
         object-fit: cover;
         border-radius: 8px;
     }
-    
+
     .popup-message {
         align-self: stretch;
         flex-direction: column;
@@ -371,7 +374,7 @@
         max-width: 100%;
         overflow: hidden;
     }
-    
+
     .greeting {
         align-self: stretch;
         color: #41403D;
@@ -385,7 +388,7 @@
         max-width: 100%;
         overflow-wrap: break-word;
     }
-    
+
     .main-question {
         align-self: stretch;
         color: #41403D;
@@ -399,7 +402,7 @@
         max-width: 100%;
         overflow-wrap: break-word;
     }
-    
+
     .supporting-text {
         align-self: stretch;
         color: #62605C;
@@ -412,7 +415,7 @@
         max-width: 100%;
         overflow-wrap: break-word;
     }
-    
+
     .popup-buttons {
         align-self: stretch;
         padding-top: 12px;
@@ -426,7 +429,7 @@
         gap: 8px;
         display: flex;
     }
-    
+
     .response-btn {
         align-self: stretch;
         height: 40px;
@@ -453,45 +456,45 @@
         line-height: 16px;
         word-wrap: break-word;
     }
-    
+
     .response-btn:hover {
         border-color: #ccc;
         background-color: #f9f9f9;
     }
-    
+
     /* Mobile Header - Show on mobile */
     .mobile-header {
         display: inline-flex !important;
         width: 100% !important;
         align-self: center !important;
     }
-    
+
     /* Simple Mobile Header - Show on mobile for screen 0 */
     .mobile-header-simple {
         display: inline-flex !important;
         width: 100% !important;
         align-self: center !important;
     }
-    
+
     /* Hide desktop header on mobile */
     .survey-header {
         display: none !important;
     }
-    
+
     .popup-header {
         display: none !important;
     }
-    
+
     /* Mobile Back Button - Show on mobile */
     .mobile-back-button {
         display: flex !important;
     }
-    
+
     /* Hide desktop back button on mobile */
     .survey-back-btn {
         display: none !important;
     }
-    
+
     /* Mobile responsive styles for 1-yes-flow screen */
     .survey-container {
         width: 100% !important;
@@ -508,7 +511,7 @@
         max-width: 100vw !important;
         overflow-x: hidden !important;
     }
-    
+
     .survey-content {
         align-self: stretch !important;
         padding-left: 12px !important;
@@ -522,14 +525,14 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .survey-left {
         width: 100% !important;
         gap: 12px !important;
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .congratulations-message {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -540,7 +543,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .congrats-text {
         align-self: stretch !important;
         color: #41403D !important;
@@ -553,7 +556,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .survey-questions {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -562,7 +565,7 @@
         gap: 30px !important;
         display: flex !important;
     }
-    
+
     .question-group {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -571,7 +574,7 @@
         gap: 12px !important;
         display: flex !important;
     }
-    
+
     .question-text {
         align-self: stretch !important;
         color: #62605C !important;
@@ -584,7 +587,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .radio-options {
         align-self: stretch !important;
         height: 30px !important;
@@ -593,7 +596,7 @@
         gap: 8px !important;
         display: inline-flex !important;
     }
-    
+
     .radio-option {
         flex: 1 1 0 !important;
         align-self: stretch !important;
@@ -612,15 +615,15 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .radio-option.selected {
         background: #E6E6E6 !important;
     }
-    
+
     .radio-option:hover {
         background: #E6E6E6 !important;
     }
-    
+
     .radio-text {
         text-align: center !important;
         justify-content: center !important;
@@ -633,7 +636,7 @@
         line-height: 14px !important;
         word-wrap: break-word !important;
     }
-    
+
     .continue-section {
         align-self: stretch !important;
         padding-top: 12px !important;
@@ -647,7 +650,7 @@
         gap: 8px !important;
         display: flex !important;
     }
-    
+
     .continue-btn {
         align-self: stretch !important;
         height: 40px !important;
@@ -663,19 +666,19 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .continue-btn.enabled {
         background: #41403D !important;
     }
-    
+
     .continue-btn.enabled:hover {
         background: #2a2926 !important;
     }
-    
+
     .continue-btn:disabled {
         cursor: not-allowed !important;
     }
-    
+
     .continue-text {
         text-align: center !important;
         justify-content: center !important;
@@ -688,15 +691,16 @@
         line-height: 16px !important;
         word-wrap: break-word !important;
     }
-    
+
     .continue-btn.enabled .continue-text {
         color: white !important;
     }
-    
+
     .survey-right {
-        display: none !important; /* Hide image on mobile */
+        display: none !important;
+        /* Hide image on mobile */
     }
-    
+
     /* Mobile responsive styles for feedback screen */
     .feedback-container {
         width: 100% !important;
@@ -713,7 +717,7 @@
         max-width: 100vw !important;
         overflow-x: hidden !important;
     }
-    
+
     .feedback-content {
         align-self: stretch !important;
         padding-left: 12px !important;
@@ -727,14 +731,14 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .feedback-left {
         width: 100% !important;
         gap: 12px !important;
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .feedback-message {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -745,7 +749,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .feedback-title {
         align-self: stretch !important;
         color: #41403D !important;
@@ -758,7 +762,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .feedback-description {
         width: 296px !important;
         color: #41403D !important;
@@ -771,7 +775,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .feedback-textarea-container {
         align-self: stretch !important;
         height: 150px !important;
@@ -786,7 +790,7 @@
         display: inline-flex !important;
         position: relative !important;
     }
-    
+
     .feedback-textarea {
         position: absolute !important;
         top: 12px !important;
@@ -802,11 +806,11 @@
         color: #41403D !important;
         line-height: 1.4 !important;
     }
-    
+
     .feedback-textarea::placeholder {
         color: #B5B3AF !important;
     }
-    
+
     .character-counter {
         width: 139px !important;
         height: 12px !important;
@@ -820,7 +824,7 @@
         bottom: 12px !important;
         right: 12px !important;
     }
-    
+
     .feedback-continue-section {
         align-self: stretch !important;
         padding-top: 12px !important;
@@ -834,7 +838,7 @@
         gap: 8px !important;
         display: flex !important;
     }
-    
+
     .feedback-continue-btn {
         align-self: stretch !important;
         height: 40px !important;
@@ -850,19 +854,19 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .feedback-continue-btn.enabled {
         background: #41403D !important;
     }
-    
+
     .feedback-continue-btn.enabled:hover {
         background: #2a2926 !important;
     }
-    
+
     .feedback-continue-btn:disabled {
         cursor: not-allowed !important;
     }
-    
+
     .feedback-continue-text {
         text-align: center !important;
         justify-content: center !important;
@@ -875,15 +879,16 @@
         line-height: 16px !important;
         word-wrap: break-word !important;
     }
-    
+
     .feedback-continue-btn.enabled .feedback-continue-text {
         color: white !important;
     }
-    
+
     .feedback-right {
-        display: none !important; /* Hide image on mobile */
+        display: none !important;
+        /* Hide image on mobile */
     }
-    
+
     /* Mobile responsive styles for screen 0 */
     .popup-container {
         width: 100% !important;
@@ -900,7 +905,7 @@
         max-width: 100vw !important;
         overflow-x: hidden !important;
     }
-    
+
     .popup-content {
         align-self: stretch !important;
         padding-left: 12px !important;
@@ -914,14 +919,14 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .popup-left {
         width: 100% !important;
         gap: 12px !important;
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .popup-right {
         width: 100% !important;
         height: 122px !important;
@@ -931,14 +936,14 @@
         order: -1 !important;
         align-self: stretch !important;
     }
-    
+
     .skyline-image {
         width: 100% !important;
         height: 122px !important;
         object-fit: cover !important;
         border-radius: 8px !important;
     }
-    
+
     .popup-message {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -949,7 +954,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .greeting {
         align-self: stretch !important;
         color: #41403D !important;
@@ -963,7 +968,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .main-question {
         align-self: stretch !important;
         color: #41403D !important;
@@ -977,7 +982,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .supporting-text {
         align-self: stretch !important;
         color: #62605C !important;
@@ -990,7 +995,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .popup-buttons {
         align-self: stretch !important;
         padding-top: 12px !important;
@@ -1004,7 +1009,7 @@
         gap: 8px !important;
         display: flex !important;
     }
-    
+
     .response-btn {
         align-self: stretch !important;
         height: 40px !important;
@@ -1031,12 +1036,12 @@
         line-height: 16px !important;
         word-wrap: break-word !important;
     }
-    
+
     .response-btn:hover {
         border-color: #ccc !important;
         background-color: #f9f9f9 !important;
     }
-    
+
     /* Mobile responsive styles for yes-with-mm and no-without-mm screens */
     .visa-container {
         width: 100% !important;
@@ -1052,7 +1057,7 @@
         max-width: 100vw !important;
         overflow-x: hidden !important;
     }
-    
+
     .visa-content {
         align-self: stretch !important;
         padding: 12px !important;
@@ -1066,14 +1071,14 @@
         overflow: hidden !important;
         order: 2 !important;
     }
-    
+
     .visa-left {
         width: 100% !important;
         gap: 12px !important;
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .visa-message {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -1084,7 +1089,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .visa-title {
         align-self: stretch !important;
         color: #41403D !important;
@@ -1097,7 +1102,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .visa-question {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -1108,7 +1113,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .visa-question-text {
         width: 296px !important;
         color: #41403D !important;
@@ -1121,7 +1126,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .visa-options {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -1130,7 +1135,7 @@
         gap: 8px !important;
         display: flex !important;
     }
-    
+
     .visa-option {
         align-self: stretch !important;
         justify-content: flex-start !important;
@@ -1140,11 +1145,11 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .visa-option:hover {
         opacity: 0.8 !important;
     }
-    
+
     .visa-radio {
         width: 20px !important;
         height: 20px !important;
@@ -1154,7 +1159,7 @@
         gap: 10px !important;
         display: flex !important;
     }
-    
+
     .visa-radio-circle {
         flex: 1 1 0 !important;
         align-self: stretch !important;
@@ -1162,12 +1167,12 @@
         border: 1px #62605C solid !important;
         transition: all 0.2s !important;
     }
-    
+
     .visa-radio-circle.selected {
         background: #62605C !important;
         border-color: #62605C !important;
     }
-    
+
     .visa-option-text {
         flex: 1 1 0 !important;
         color: #62605C !important;
@@ -1177,7 +1182,7 @@
         word-wrap: break-word !important;
         margin: 0 !important;
     }
-    
+
     .visa-complete-section {
         align-self: stretch !important;
         padding-top: 12px !important;
@@ -1191,7 +1196,7 @@
         gap: 8px !important;
         display: flex !important;
     }
-    
+
     .visa-complete-btn {
         align-self: stretch !important;
         height: 40px !important;
@@ -1207,19 +1212,19 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .visa-complete-btn.enabled {
         background: #41403D !important;
     }
-    
+
     .visa-complete-btn.enabled:hover {
         background: #2a2926 !important;
     }
-    
+
     .visa-complete-btn:disabled {
         cursor: not-allowed !important;
     }
-    
+
     .visa-complete-text {
         text-align: center !important;
         justify-content: center !important;
@@ -1232,15 +1237,16 @@
         line-height: 16px !important;
         word-wrap: break-word !important;
     }
-    
+
     .visa-complete-btn.enabled .visa-complete-text {
         color: white !important;
     }
-    
+
     .visa-right {
-        display: none !important; /* Hide image on mobile */
+        display: none !important;
+        /* Hide image on mobile */
     }
-    
+
     /* Mobile responsive styles for no-without-mm screen */
     .visa-subtitle {
         align-self: stretch !important;
@@ -1252,7 +1258,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .visa-subtitle-text {
         align-self: stretch !important;
         color: #41403D !important;
@@ -1265,7 +1271,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .visa-subtitle-text span {
         color: #41403D !important;
         font-size: 18px !important;
@@ -1273,11 +1279,11 @@
         font-weight: 600 !important;
         word-wrap: break-word !important;
     }
-    
+
     .visa-subtitle-text span[style*="text-decoration"] {
         text-decoration: underline !important;
     }
-    
+
     /* Ensure mobile header is visible in visa-container */
     .visa-container .mobile-header {
         display: inline-flex !important;
@@ -1285,16 +1291,16 @@
         align-self: center !important;
         order: 1 !important;
     }
-    
+
     /* Hide desktop header in visa-container on mobile */
     .visa-container .survey-header {
         display: none !important;
     }
-    
+
     .visa-content {
         order: 2 !important;
     }
-    
+
     /* Mobile responsive styles for no-help-with-visa screen */
     .visa-container .visa-image {
         align-self: stretch !important;
@@ -1306,7 +1312,12 @@
         object-fit: cover !important;
         margin-bottom: 12px !important;
     }
-    
+
+    /* Show mobile-only image on mobile */
+    .visa-image.mobile-only {
+        display: block !important;
+    }
+
     .visa-container .visa-title {
         align-self: stretch !important;
         color: #41403D !important;
@@ -1320,7 +1331,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .visa-container .visa-subtitle-text {
         align-self: stretch !important;
         color: #41403D !important;
@@ -1333,20 +1344,20 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .visa-container .visa-complete-btn.enabled {
         background: #996EFF !important;
         color: white !important;
     }
-    
+
     .visa-container .visa-complete-btn.enabled:hover {
         background: #8B5CF6 !important;
     }
-    
+
     .visa-container .visa-complete-btn.enabled .visa-complete-text {
         color: white !important;
     }
-    
+
     /* Mobile responsive styles for 1-no-flow screen */
     .discount-container {
         width: 100% !important;
@@ -1363,7 +1374,7 @@
         max-width: 100vw !important;
         overflow-x: hidden !important;
     }
-    
+
     .discount-content {
         align-self: stretch !important;
         padding-left: 12px !important;
@@ -1377,14 +1388,14 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .discount-left {
         width: 100% !important;
         gap: 12px !important;
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .discount-message {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -1395,7 +1406,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
     }
-    
+
     .discount-title {
         align-self: stretch !important;
         color: #41403D !important;
@@ -1408,7 +1419,7 @@
         max-width: 100% !important;
         overflow-wrap: break-word !important;
     }
-    
+
     .discount-offer-card {
         align-self: stretch !important;
         padding: 12px !important;
@@ -1425,7 +1436,7 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
-    
+
     .discount-offer-content {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -1439,16 +1450,16 @@
         min-height: 80px !important;
         padding: 4px 0 !important;
     }
-    
+
     /* Ensure proper order for mobile - title first, then pricing */
     .discount-container .discount-offer-title {
         order: 1 !important;
     }
-    
+
     .discount-container .discount-pricing {
         order: 2 !important;
     }
-    
+
     .discount-offer-title {
         align-self: stretch !important;
         color: #41403D !important;
@@ -1463,7 +1474,7 @@
         min-height: 60px !important;
         margin-bottom: 4px !important;
     }
-    
+
     .discount-title-text {
         color: #41403D !important;
         font-size: 28px !important;
@@ -1471,7 +1482,7 @@
         font-weight: 600 !important;
         word-wrap: break-word !important;
     }
-    
+
     .discount-title-underline {
         color: #41403D !important;
         font-size: 28px !important;
@@ -1480,7 +1491,7 @@
         text-decoration: underline !important;
         word-wrap: break-word !important;
     }
-    
+
     /* Mobile specific spacing - allow text wrapping with proper spacing */
     .discount-container .discount-offer-title {
         white-space: normal !important;
@@ -1489,26 +1500,30 @@
         line-height: 1.2 !important;
         display: block !important;
     }
-    
+
     /* Mobile specific spacing - add regular spaces */
     .discount-container .discount-title-text:first-child::after {
-        content: " " !important; /* Regular space */
+        content: " " !important;
+        /* Regular space */
     }
-    
+
     .discount-container .discount-title-text:last-child::before {
-        content: " " !important; /* Regular space */
+        content: " " !important;
+        /* Regular space */
     }
-    
+
     /* Ensure proper text flow for mobile */
     .discount-container .discount-title-underline::after {
-        content: " " !important; /* Space after 50% off */
+        content: " " !important;
+        /* Space after 50% off */
     }
-    
+
     /* Make spans inline for proper text flow */
     .discount-container .discount-title-text,
     .discount-container .discount-title-underline {
         display: inline !important;
     }
+
     .discount-pricing {
         align-self: stretch !important;
         justify-content: center !important;
@@ -1518,13 +1533,13 @@
         margin-top: 4px !important;
         min-height: 30px !important;
     }
-    
+
     .discount-price {
         width: 138px !important;
         height: 23px !important;
         text-align: center !important;
     }
-    
+
     .discount-price-amount {
         color: #9A6FFF !important;
         font-size: 24px !important;
@@ -1532,7 +1547,7 @@
         font-weight: 600 !important;
         word-wrap: break-word !important;
     }
-    
+
     .discount-price-period {
         color: #9A6FFF !important;
         font-size: 20px !important;
@@ -1540,7 +1555,7 @@
         font-weight: 600 !important;
         word-wrap: break-word !important;
     }
-    
+
     .discount-original-price {
         width: 102px !important;
         height: 15px !important;
@@ -1551,7 +1566,7 @@
         text-decoration: line-through !important;
         word-wrap: break-word !important;
     }
-    
+
     .discount-actions {
         align-self: stretch !important;
         flex-direction: column !important;
@@ -1560,7 +1575,7 @@
         gap: 4px !important;
         display: flex !important;
     }
-    
+
     .discount-accept-btn {
         align-self: stretch !important;
         height: 40px !important;
@@ -1579,11 +1594,11 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .discount-accept-btn:hover {
         background: #3FA85D !important;
     }
-    
+
     .discount-accept-text {
         text-align: center !important;
         justify-content: center !important;
@@ -1596,7 +1611,7 @@
         line-height: 16px !important;
         word-wrap: break-word !important;
     }
-    
+
     .discount-note {
         align-self: stretch !important;
         text-align: center !important;
@@ -1608,7 +1623,7 @@
         word-wrap: break-word !important;
         margin: 0 !important;
     }
-    
+
     .discount-decline-section {
         align-self: stretch !important;
         padding-top: 12px !important;
@@ -1622,7 +1637,7 @@
         gap: 8px !important;
         display: flex !important;
     }
-    
+
     .discount-decline-btn {
         align-self: stretch !important;
         height: 40px !important;
@@ -1640,11 +1655,11 @@
         cursor: pointer !important;
         transition: all 0.2s !important;
     }
-    
+
     .discount-decline-btn:hover {
         background: #f9f9f9 !important;
     }
-    
+
     .discount-decline-text {
         text-align: center !important;
         justify-content: center !important;
@@ -1657,11 +1672,12 @@
         line-height: 16px !important;
         word-wrap: break-word !important;
     }
-    
+
     .discount-right {
-        display: none !important; /* Hide image on mobile */
+        display: none !important;
+        /* Hide image on mobile */
     }
-    
+
     /* Ensure mobile header is visible in discount-container */
     .discount-container .mobile-header {
         display: inline-flex !important;
@@ -1669,12 +1685,12 @@
         align-self: center !important;
         order: 1 !important;
     }
-    
+
     /* Hide desktop header in discount-container on mobile */
     .discount-container .survey-header {
         display: none !important;
     }
-    
+
     .discount-content {
         order: 2 !important;
     }
@@ -1683,11 +1699,13 @@
 /* Desktop specific spacing for discount title */
 @media (min-width: 769px) {
     .discount-offer-title .discount-title-text:first-child::after {
-        content: "\00a0" !important; /* Non-breaking space */
+        content: "\00a0" !important;
+        /* Non-breaking space */
     }
-    
+
     .discount-offer-title .discount-title-text:last-child::before {
-        content: "\00a0" !important; /* Non-breaking space */
+        content: "\00a0" !important;
+        /* Non-breaking space */
     }
 }
 
@@ -1699,25 +1717,25 @@
         height: auto;
         min-height: 433px;
     }
-    
+
     .popup-header {
         height: 60px;
         padding: 0 18px;
         display: inline-flex;
     }
-    
+
     .popup-content {
         flex-direction: column;
         height: auto;
         min-height: 373px;
         flex: 1;
     }
-    
+
     .popup-right {
         height: 200px;
         order: -1;
     }
-    
+
     .skyline-image {
         border-radius: 20px 20px 0 0;
     }
@@ -2824,6 +2842,11 @@
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
+}
+
+/* Hide mobile-only image on desktop */
+.visa-image.mobile-only {
+    display: none;
 }
 
 /* Completion Screen Styles */
