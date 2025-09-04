@@ -781,6 +781,9 @@
 /* Visa Support Screen Styles */
 .visa-container {
     width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
 }
@@ -818,9 +821,28 @@
     align-self: stretch;
     color: #41403D;
     font-size: 36px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 600;
     line-height: 36px;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.visa-subtitle {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: flex;
+}
+
+.visa-subtitle-text {
+    align-self: stretch;
+    color: #41403D;
+    font-size: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
     word-wrap: break-word;
     margin: 0;
 }
@@ -851,6 +873,8 @@
     align-items: flex-start;
     gap: 16px;
     display: flex;
+    position: relative;
+    z-index: 1;
 }
 
 .visa-option {
@@ -949,6 +973,183 @@
     color: white;
 }
 
+.visa-complete-btn.enabled {
+    background: #996EFF;
+}
+
+.visa-complete-btn.enabled .visa-complete-text {
+    color: white;
+}
+
+/* Visa Type Input Styles */
+.visa-visa-type-question {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+    margin-top: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.visa-type-label {
+    width: 395px;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.visa-type-input {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px #62605C solid;
+    outline-offset: -1px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    display: inline-flex;
+    background: white;
+    border: none;
+    color: #41403D;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+}
+
+.visa-type-input::placeholder {
+    color: #FAFAFA;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+}
+
+.visa-type-input:focus {
+    outline: 2px #41403D solid;
+    outline-offset: -2px;
+}
+
+/* Help with Visa Contact Card Styles */
+.visa-contact-card {
+    align-self: stretch;
+    padding: 16px;
+    background: #F6F6F6;
+    border-radius: 8px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+
+.visa-contact-header {
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+}
+
+.visa-contact-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 56.11px;
+}
+
+.visa-contact-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    display: inline-flex;
+}
+
+.visa-contact-name {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #41403D;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 14px;
+    word-wrap: break-word;
+}
+
+.visa-contact-email {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #62605C;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 14px;
+    word-wrap: break-word;
+}
+
+.visa-contact-message {
+    align-self: stretch;
+    padding-left: 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+}
+
+.visa-message-content {
+    flex: 1 1 0;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.visa-message-bold {
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.visa-message-normal {
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.visa-message-medium {
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.visa-message-underline {
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    text-decoration: underline;
+    word-wrap: break-word;
+}
+
 .visa-right {
     width: 400px;
     align-self: stretch;
@@ -959,6 +1160,125 @@
 }
 
 .visa-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+/* Completion Screen Styles */
+.completion-container {
+    width: 1000px;
+    background: white;
+    overflow: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.completion-content {
+    align-self: stretch;
+    padding: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.completion-left {
+    flex: 1 1 0;
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+
+.completion-message {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: flex;
+}
+
+.completion-title {
+    align-self: stretch;
+    color: #41403D;
+    font-size: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 36px;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.completion-description {
+    align-self: stretch;
+    color: #62605C;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.completion-actions {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.completion-close-btn {
+    align-self: stretch;
+    height: 40px;
+    padding: 12px;
+    background: #41403D;
+    overflow: hidden;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.completion-close-btn:hover {
+    background: #2a2926;
+}
+
+.completion-close-text {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+
+.completion-right {
+    width: 400px;
+    align-self: stretch;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.20);
+    border-radius: 12px;
+    border-top: 2px rgba(255, 255, 255, 0.30) solid;
+    overflow: hidden;
+}
+
+.completion-image {
     width: 100%;
     height: 100%;
     object-fit: cover;

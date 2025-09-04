@@ -15,16 +15,22 @@ function SurveyHeader({
     onClose: () => void; 
     onBack: () => void; 
 }) {
+    const isCompleted = step === totalSteps;
+    
     return (
         <div className="survey-header">
             <button className="survey-close-btn" onClick={onClose}></button>
             <div className="survey-header-content">
-                <div className="survey-title">Subscription Cancellation</div>
+                <div className="survey-title">
+                    {isCompleted ? "Subscription Cancelled" : "Subscription Cancellation"}
+                </div>
                 <div className="survey-progress">
                     <div className="progress-dots">
                         {Array.from({ length: totalSteps }, (_, i) => {
                             let className = 'progress-dot';
-                            if (i < step - 1) {
+                            if (isCompleted) {
+                                className += ' completed'; // All dots green when completed
+                            } else if (i < step - 1) {
                                 className += ' completed'; // Completed steps (green)
                             } else if (i === step - 1) {
                                 className += ' current'; // Current step (dark grey)
@@ -35,7 +41,9 @@ function SurveyHeader({
                             );
                         })}
                     </div>
-                    <div className="step-counter">Step {step} of {totalSteps}</div>
+                    <div className="step-counter">
+                        {isCompleted ? "Completed" : `Step ${step} of ${totalSteps}`}
+                    </div>
                 </div>
             </div>
             <div className="survey-back-btn" onClick={onBack}>
@@ -59,11 +67,34 @@ type CancelFlowState = {
 } | {
     screen: "feedback",
     feedback: string | undefined,
+    foundJobUsingMM: boolean | undefined,
 } | {
-    screen: "visa-support",
+    screen: "yes-with-mm",
     hasImmigrationLawyer: boolean | undefined,
 } | {
-    screen: "2-yes-flow" | "1-no-flow"
+    screen: "yes-after-yes-with-mm",
+    visaType: string | undefined,
+} | {
+    screen: "no-after-yes-with-mm",
+    visaType: string | undefined,
+} | {
+    screen: "no-without-mm",
+    hasImmigrationLawyer: boolean | undefined,
+} | {
+    screen: "yes-after-no-without-mm",
+    visaType: string | undefined,
+} | {
+    screen: "no-after-no-without-mm",
+    visaType: string | undefined,
+} | {
+    screen: "no-help-with-visa",
+} | {
+    screen: "help-with-visa",
+} | {
+    screen: "2-yes-flow",
+    completed: boolean,
+} | {
+    screen: "1-no-flow"
 };
 
 function getNextScreen(state: CancelFlowState): CancelFlowState {
@@ -93,6 +124,7 @@ function getNextScreen(state: CancelFlowState): CancelFlowState {
             return {
                 screen: "feedback",
                 feedback: undefined,
+                foundJobUsingMM: state.foundJobUsingMM,
             };
         } else if (state.screen === "feedback") {
             assert(state.feedback !== undefined);
@@ -100,19 +132,21 @@ function getNextScreen(state: CancelFlowState): CancelFlowState {
             const surveyState = state as any;
             if (surveyState.foundJobUsingMM === true) {
                 return {
-                    screen: "visa-support",
+                    screen: "yes-with-mm",
                     hasImmigrationLawyer: undefined,
                 };
             } else {
-                return {
-                    screen: "2-yes-flow",
-                };
+                // return {
+                //     screen: "2-yes-flow",
+                // };
+                return state; // Stay on current screen for now
             }
-        } else if (state.screen === "visa-support") {
+        } else if (state.screen === "yes-with-mm") {
             assert(state.hasImmigrationLawyer !== undefined);
-            return {
-                screen: "2-yes-flow",
-            };
+            // return {
+            //     screen: "2-yes-flow",
+            // };
+            return state; // Stay on current screen for now
         }
     } catch {
         return state;
@@ -127,11 +161,14 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
         foundJob: undefined,
     }]);
 
+    // Handle automatic transition only for the first screen (screen "0")
     useEffect(() => {
-        const currScreen = state[state.length - 1].screen;
-        const nextScreenState = getNextScreen(state[state.length - 1]);
-        if (nextScreenState.screen !== currScreen) {
+        const latestState = state[state.length - 1];
+        if (latestState.screen === "0" && latestState.foundJob !== undefined) {
+            const nextScreenState = getNextScreen(latestState);
+            if (nextScreenState.screen !== latestState.screen) {
             setState([...state, nextScreenState]);
+            }
         }
     }, [state]);
 
@@ -246,10 +283,13 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="radio-options">
                                             <button 
                                                 className={`radio-option ${latestState.foundJobUsingMM === true ? 'selected' : ''}`}
-                                                onClick={() => setState([...state, {
+                                                onClick={() => {
+                                                    console.log("Yes button clicked, current state:", latestState);
+                                                    setState([...state, {
                                                     ...latestState,
                                                     foundJobUsingMM: true,
-                                                }])}
+                                                    }]);
+                                                }}
                                             >
                                                 <div className="radio-text">Yes</div>
                                             </button>
@@ -335,9 +375,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         disabled={!canContinue}
                                         onClick={() => {
                                             if (canContinue) {
+                                                console.log("1-yes-flow continue clicked, latestState:", latestState);
+                                                console.log("foundJobUsingMM value:", latestState.foundJobUsingMM);
                                                 setState([...state, {
-                                                    ...latestState,
-                                                    continueClicked: true,
+                                                    screen: "feedback",
+                                                    feedback: undefined,
+                                                    foundJobUsingMM: latestState.foundJobUsingMM,
                                                 }]);
                                             }
                                         }}
@@ -403,10 +446,22 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         disabled={!canContinue}
                                         onClick={() => {
                                             if (canContinue) {
+                                                // Check if user found job with MigrateMate to determine next screen
+                                                console.log("Current state foundJobUsingMM:", latestState.foundJobUsingMM);
+                                                
+                                                if (latestState.foundJobUsingMM === true) {
+                                                    console.log("Transitioning to yes-with-mm");
+                                                    setState([...state, {
+                                                        screen: "yes-with-mm",
+                                                        hasImmigrationLawyer: undefined,
+                                                    }]);
+                                                } else {
+                                                    console.log("Transitioning to no-without-mm");
                                                 setState([...state, {
-                                                    ...latestState,
-                                                    feedback: latestState.feedback,
+                                                        screen: "no-without-mm",
+                                                        hasImmigrationLawyer: undefined,
                                                 }]);
+                                                }
                                             }
                                         }}
                                     >
@@ -427,7 +482,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 </div>
             </div>
         )
-    } else if (latestState.screen === "visa-support") {
+    } else if (latestState.screen === "yes-with-mm") {
         const canComplete = latestState.hasImmigrationLawyer !== undefined;
 
         return (
@@ -452,8 +507,8 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 
                                 <div className="visa-options">
                                     <div className="visa-option" onClick={() => setState([...state, {
-                                        ...latestState,
-                                        hasImmigrationLawyer: true,
+                                        screen: "yes-after-yes-with-mm",
+                                        visaType: undefined,
                                     }])}>
                                         <div className="visa-radio">
                                             <div className={`visa-radio-circle ${latestState.hasImmigrationLawyer === true ? 'selected' : ''}`}></div>
@@ -461,8 +516,8 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="visa-option-text">Yes</div>
                                     </div>
                                     <div className="visa-option" onClick={() => setState([...state, {
-                                        ...latestState,
-                                        hasImmigrationLawyer: false,
+                                        screen: "no-after-yes-with-mm",
+                                        visaType: undefined,
                                     }])}>
                                         <div className="visa-radio">
                                             <div className={`visa-radio-circle ${latestState.hasImmigrationLawyer === false ? 'selected' : ''}`}></div>
@@ -485,6 +540,536 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         }}
                                     >
                                         <div className="visa-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    // } else if (latestState.screen === "2-yes-flow") {
+    //     return (
+    //         <div className="cancellation-popup">
+    //             <div className="popup-overlay">
+    //                 <div className="completion-container">
+    //                     <div className="completion-content">
+    //                         <div className="completion-left">
+    //                             <div className="completion-message">
+    //                                 <div className="completion-title">Thank you for your feedback!</div>
+    //                             </div>
+    //                             
+    //                             <div className="completion-description">
+    //                                 Your subscription has been cancelled successfully. We appreciate you taking the time to share your experience with us.
+    //                             </div>
+    //                             
+    //                             <div className="completion-actions">
+    //                                 <button
+    //                                     className="completion-close-btn"
+    //                                     onClick={closeView}
+    //                                 >
+    //                                     <div className="completion-close-text">Close</div>
+    //                                 </button>
+    //                             </div>
+    //                         </div>
+    //                         
+    //                         <div className="completion-right">
+    //                             <img 
+    //                                 src="/empire-state-compressed.jpg" 
+    //                                 alt="New York City skyline with Empire State Building at dusk"
+    //                                 className="completion-image"
+    //                             />
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
+
+    } else if (latestState.screen === "yes-after-yes-with-mm") {
+        const canComplete = latestState.visaType !== undefined && latestState.visaType.length > 0;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
+                                </div>
+                                
+                                <div className="visa-question">
+                                    <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
+                                </div>
+                                
+                                <div className="visa-options">
+                                    <div className="visa-option">
+                                        <div className="visa-radio">
+                                            <div className="visa-radio-circle selected"></div>
+                                        </div>
+                                        <div className="visa-option-text">Yes</div>
+                                    </div>
+                                    <div className="visa-visa-type-question">
+                                        <div className="visa-type-label">What visa will you be applying for?*</div>
+                                        <input
+                                            type="text"
+                                            className="visa-type-input"
+                                            placeholder="Enter visa type..."
+                                            value={latestState.visaType || ''}
+                                            onChange={(e) => setState([...state, {
+                                                ...latestState,
+                                                visaType: e.target.value,
+                                            }])}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
+                                        disabled={!canComplete}
+                                        onClick={() => {
+                                            if (canComplete) {
+                                                setState([...state, {
+                                                    screen: "no-help-with-visa",
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="visa-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "no-after-yes-with-mm") {
+        const canComplete = latestState.visaType !== undefined && latestState.visaType.length > 0;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
+                                </div>
+                                
+                                <div className="visa-question">
+                                    <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
+                                </div>
+                                
+                                <div className="visa-options">
+                                    <div className="visa-option">
+                                        <div className="visa-radio">
+                                            <div className="visa-radio-circle selected"></div>
+                                        </div>
+                                        <div className="visa-option-text">No</div>
+                                    </div>
+                                    <div className="visa-visa-type-question">
+                                        <div className="visa-type-label">We can connect you with one of our trusted partners. Which visa would you like to apply for?*</div>
+                                        <input
+                                            type="text"
+                                            className="visa-type-input"
+                                            placeholder="Enter visa type..."
+                                            value={latestState.visaType || ''}
+                                            onChange={(e) => setState([...state, {
+                                                ...latestState,
+                                                visaType: e.target.value,
+                                            }])}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
+                                        disabled={!canComplete}
+                                        onClick={() => {
+                                            if (canComplete) {
+                                                setState([...state, {
+                                                    screen: "help-with-visa",
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="visa-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "no-without-mm") {
+        const canComplete = latestState.hasImmigrationLawyer !== undefined;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">
+                                        <span>You landed the job! <br/></span>
+                                        <span style={{fontStyle: 'italic'}}>That's what we live for.</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-subtitle">
+                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br/>let us help get your visa sorted.</div>
+                                </div>
+                                
+                                <div className="visa-question">
+                                    <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
+                                </div>
+                                
+                                <div className="visa-options">
+                                    <div className="visa-option" onClick={() => setState([...state, {
+                                        screen: "yes-after-no-without-mm",
+                                        visaType: undefined,
+                                    }])}>
+                                        <div className="visa-radio">
+                                            <div className={`visa-radio-circle ${latestState.hasImmigrationLawyer === true ? 'selected' : ''}`}></div>
+                                        </div>
+                                        <div className="visa-option-text">Yes</div>
+                                    </div>
+                                    <div className="visa-option" onClick={() => setState([...state, {
+                                        screen: "no-after-no-without-mm",
+                                        visaType: undefined,
+                                    }])}>
+                                        <div className="visa-radio">
+                                            <div className={`visa-radio-circle ${latestState.hasImmigrationLawyer === false ? 'selected' : ''}`}></div>
+                                        </div>
+                                        <div className="visa-option-text">No</div>
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
+                                        disabled={!canComplete}
+                                        onClick={() => {
+                                            if (canComplete) {
+                                                setState([...state, {
+                                                    screen: "2-yes-flow",
+                                                    completed: true,
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="visa-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "yes-after-no-without-mm") {
+        const canComplete = latestState.visaType !== undefined && latestState.visaType.length > 0;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">
+                                        <span>You landed the job! <br/></span>
+                                        <span style={{fontStyle: 'italic'}}>That's what we live for.</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-subtitle">
+                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br/>let us help get your visa sorted.</div>
+                                </div>
+                                
+                                <div className="visa-question">
+                                    <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
+                                </div>
+                                
+                                <div className="visa-options">
+                                    <div className="visa-option">
+                                        <div className="visa-radio">
+                                            <div className="visa-radio-circle selected"></div>
+                                        </div>
+                                        <div className="visa-option-text">Yes</div>
+                                    </div>
+                                    <div className="visa-visa-type-question">
+                                        <div className="visa-type-label">What visa will you be applying for?*</div>
+                                        <input
+                                            type="text"
+                                            className="visa-type-input"
+                                            placeholder="Enter visa type..."
+                                            value={latestState.visaType || ''}
+                                            onChange={(e) => setState([...state, {
+                                                ...latestState,
+                                                visaType: e.target.value,
+                                            }])}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
+                                        disabled={!canComplete}
+                                        onClick={() => {
+                                            if (canComplete) {
+                                                setState([...state, {
+                                                    screen: "2-yes-flow",
+                                                    completed: true,
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="visa-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "no-after-no-without-mm") {
+        const canComplete = latestState.visaType !== undefined && latestState.visaType.length > 0;
+
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">
+                                        <span>You landed the job! <br/></span>
+                                        <span style={{fontStyle: 'italic'}}>That's what we live for.</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-subtitle">
+                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br/>let us help get your visa sorted.</div>
+                                </div>
+                                
+                                <div className="visa-question">
+                                    <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
+                                </div>
+                                
+                                <div className="visa-options">
+                                    <div className="visa-option">
+                                        <div className="visa-radio">
+                                            <div className="visa-radio-circle selected"></div>
+                                        </div>
+                                        <div className="visa-option-text">No</div>
+                                    </div>
+                                    <div className="visa-visa-type-question">
+                                        <div className="visa-type-label">We can connect you with one of our trusted partners. Which visa would you like to apply for?*</div>
+                                        <input
+                                            type="text"
+                                            className="visa-type-input"
+                                            placeholder="Enter visa type..."
+                                            value={latestState.visaType || ''}
+                                            onChange={(e) => setState([...state, {
+                                                ...latestState,
+                                                visaType: e.target.value,
+                                            }])}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
+                                        disabled={!canComplete}
+                                        onClick={() => {
+                                            if (canComplete) {
+                                                setState([...state, {
+                                                    screen: "help-with-visa",
+                                                }]);
+                                            }
+                                        }}
+                                    >
+                                        <div className="visa-complete-text">Complete cancellation</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "no-help-with-visa") {
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">All done, your cancellation's <br/>been processed.</div>
+                                </div>
+                                
+                                <div className="visa-subtitle">
+                                    <div className="visa-subtitle-text">We're stoked to hear you've landed a job and sorted your visa. Big congrats from the team. 🙌</div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className="visa-complete-btn enabled"
+                                        onClick={closeView}
+                                    >
+                                        <div className="visa-complete-text">Finish</div>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="visa-right">
+                                <img 
+                                    src="/empire-state-compressed.jpg" 
+                                    alt="New York City skyline with Empire State Building at dusk"
+                                    className="visa-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    } else if (latestState.screen === "help-with-visa") {
+        return (
+            <div className="cancellation-popup">
+                <div className="popup-overlay">
+                    <div className="visa-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
+                        <div className="visa-content">
+                            <div className="visa-left">
+                                <div className="visa-message">
+                                    <div className="visa-title">Your cancellation's all sorted, mate, no more charges.</div>
+                                </div>
+                                
+                                <div className="visa-contact-card">
+                                    <div className="visa-contact-header">
+                                        <img 
+                                            src="/mihailo-profile.jpeg" 
+                                            alt="Mihailo Bozic profile"
+                                            className="visa-contact-avatar"
+                                        />
+                                        <div className="visa-contact-info">
+                                            <div className="visa-contact-name">Mihailo Bozic</div>
+                                            <div className="visa-contact-email">&lt;mihailo@migratemate.co&gt;</div>
+                                        </div>
+                                    </div>
+                                    <div className="visa-contact-message">
+                                        <div className="visa-message-content">
+                                            <span className="visa-message-bold">I'll be reaching out soon to help with the visa side of things.<br/></span>
+                                            <span className="visa-message-normal"><br/>We've got your back, whether it's questions, paperwork, or just figuring out your options.<br/><br/></span>
+                                            <span className="visa-message-medium">Keep an eye on your inbox, I'll be in touch </span>
+                                            <span className="visa-message-underline">shortly</span>
+                                            <span className="visa-message-medium">.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="visa-complete-section">
+                                    <button
+                                        className="visa-complete-btn enabled"
+                                        onClick={closeView}
+                                    >
+                                        <div className="visa-complete-text">Finish</div>
                                     </button>
                                 </div>
                             </div>

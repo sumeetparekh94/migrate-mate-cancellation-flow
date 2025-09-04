@@ -14,7 +14,7 @@ const mockSubscriptionData = {
   status: 'active',
   isTrialSubscription: false,
   cancelAtPeriodEnd: false,
-  currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
+  currentPeriodEnd: '2024-02-15T00:00:00.000Z', // Fixed date to prevent hydration mismatch
   monthlyPrice: 25,
   isUCStudent: false,
   hasManagedAccess: false,
