@@ -1493,10 +1493,21 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                                 className="reason-too-expensive-input"
                                                 placeholder=""
                                                 value={latestState.maxPrice || ''}
-                                                onChange={(e) => setState([...state, {
-                                                    ...latestState,
-                                                    maxPrice: e.target.value,
-                                                }])}
+                                                onChange={(e) => {
+                                                    const value = e.target.value;
+                                                    // Only allow numbers and one decimal point
+                                                    const numericValue = value.replace(/[^0-9.]/g, '');
+                                                    // Ensure only one decimal point
+                                                    const parts = numericValue.split('.');
+                                                    const validValue = parts.length > 2 
+                                                        ? parts[0] + '.' + parts.slice(1).join('')
+                                                        : numericValue;
+                                                    
+                                                    setState([...state, {
+                                                        ...latestState,
+                                                        maxPrice: validValue,
+                                                    }]);
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -1892,6 +1903,12 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="cancellation-complete-after-reason-container">
+                        <SurveyHeader 
+                            step={3} 
+                            totalSteps={3} 
+                            onClose={closeView} 
+                            onBack={goBack} 
+                        />
                         <div className="cancellation-complete-after-reason-content">
                             <div className="cancellation-complete-after-reason-left">
                                 <div className="cancellation-complete-after-reason-main-container">

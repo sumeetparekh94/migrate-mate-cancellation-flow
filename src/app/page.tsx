@@ -25,7 +25,7 @@ const mockSubscriptionData = {
 export default function ProfilePage() {
   const [loading] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const [showCancelFlow, setShowCancelFlow] = useState(true); // TODO: Set this to false initially
+  const [showCancelFlow, setShowCancelFlow] = useState(false); // Start with profile screen
 
   // New state for settings toggle
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
