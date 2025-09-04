@@ -2090,7 +2090,6 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             step={3}
                             totalSteps={3}
                             onClose={closeView}
-                            onBack={goBack}
                         />
                         <div className="cancellation-complete-after-reason-content">
                             <div className="cancellation-complete-after-reason-left">
