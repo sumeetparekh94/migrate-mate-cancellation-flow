@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import FormWrapper from "./FormWrapper";
 import "./index.css";
+import Screen0 from "./screen0";
+import { toast } from "react-toastify";
 
 // Reusable header component for survey screens
 function SurveyHeader({ 
@@ -198,6 +200,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
         screen: "0",
         foundJob: undefined,
     }]);
+    const [lastSavedState, setLastSavedState] = useState<CancelFlowState[]>(state);
 
     // Handle automatic transition only for the first screen (screen "0")
     useEffect(() => {
@@ -205,21 +208,29 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
         if (latestState.screen === "0" && latestState.foundJob !== undefined) {
             const nextScreenState = getNextScreen(latestState);
             if (nextScreenState.screen !== latestState.screen) {
-            setState([...state, nextScreenState]);
+                setState([...state, nextScreenState]);
             }
         }
     }, [state]);
 
     useEffect(() => {
-        // TODO: If there is an error in this API call, how do we handle this in the UI?
         async function saveState() {
-            await fetch("/api/cancellation-flow-state", {
+            const stateToSave = [...state];
+            let response = await fetch("/api/cancellation-flow-state", {
                 method: "PUT",
-                body: JSON.stringify({ userId, state }),
+                body: JSON.stringify({ userId, state: stateToSave }),
             });
+            if (response.ok) {
+                setLastSavedState(stateToSave);
+            } else {
+                toast.error("Something went wrong, please try again.");
+                setState(lastSavedState);
+            }
         }
-        saveState().catch(console.error);
-    }, [state, userId]);
+        if (JSON.stringify(state) !== JSON.stringify(lastSavedState)) {
+            saveState()
+        }
+    }, [state, userId, lastSavedState]);
 
     const goBack = useCallback(() => {
         const newState = [...state];
@@ -236,64 +247,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
     const latestState = state[state.length - 1];
 
     if (latestState.screen === "0") {
-        return (
-            <div className="cancellation-popup">
-                <div className="popup-overlay">
-                    <div className="popup-container">
-                        <div className="popup-header">
-                            <h2 className="popup-title">Subscription Cancellation</h2>
-                            <button className="close-btn" onClick={closeView}></button>
-                        </div>
-                        
-                        <div className="popup-content">
-                            <div className="popup-left">
-                                <div className="popup-message">
-                                    <div className="greeting">Hey mate,<br/>Quick one before you go.</div>
-                                    <div className="main-question">Have you found a job yet?</div>
-                                </div>
-                                
-                                <div className="supporting-text">
-                                    Whatever your answer, we just want to help you take the next step. 
-                                    With visa support, or by hearing how we can do better.
-                                </div>
-                                
-                                <div className="popup-buttons">
-                                    <button 
-                                        className="response-btn"
-                                        onClick={() => setState([...state, {
-                                            ...latestState,
-                                            foundJob: true,
-                                        }])}
-                                    >
-                                        Yes, I've found a job
-                                    </button>
-                                    <button 
-                                        className="response-btn"
-                                        onClick={() => setState([...state, {
-                                            ...latestState,
-                                            foundJob: false,
-                                        }])}
-                                    >
-                                        Not yet - I'm still looking
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div className="popup-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
-                                    alt="New York City skyline with Empire State Building at dusk"
-                                    className="skyline-image"
-                                    width={400}
-                                    height={437}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-
+        return <Screen0 closeView={closeView} setState={setState} state={state} latestState={latestState} />;
     } else if (latestState.screen === "1-yes-flow") {
         const canContinue = latestState.foundJobUsingMM !== undefined &&
             latestState.rangeOfRolesApplied !== undefined &&
