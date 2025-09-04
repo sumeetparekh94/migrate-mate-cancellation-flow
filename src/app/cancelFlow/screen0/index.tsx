@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CancelFlowState } from "../index";
 
 // Mobile header component for screen 0 (no progress steps)
 function MobileHeader({ onClose }: { onClose: () => void }) {
@@ -16,12 +17,12 @@ export default function Screen0({
     closeView,
     setState,
     state,
-    latestState,
+    downsellVariant,
 }: {
     closeView: () => void;
-    setState: (state: any) => void;
-    state: any;
-    latestState: any;
+    setState: (state: CancelFlowState[]) => void;
+    state: CancelFlowState[];
+    downsellVariant: "A" | "B";
 }) {
     return (
         <div className="cancellation-popup">
@@ -34,47 +35,69 @@ export default function Screen0({
                         </div>
                         <button className="close-btn" onClick={closeView}></button>
                     </div>
-                    
+
                     {/* Mobile Header */}
                     <MobileHeader onClose={closeView} />
-                    
+
                     <div className="popup-content">
                         <div className="popup-left">
                             <div className="popup-message">
-                                <div className="greeting">Hey mate,<br/>Quick one before you go.</div>
+                                <div className="greeting">Hey mate,<br />Quick one before you go.</div>
                                 <div className="main-question">Have you found a job yet?</div>
                             </div>
-                            
+
                             <div className="supporting-text">
-                                Whatever your answer, we just want to help you take the next step. 
+                                Whatever your answer, we just want to help you take the next step.
                                 With visa support, or by hearing how we can do better.
                             </div>
-                            
+
                             <div className="popup-buttons">
-                                <button 
+                                <button
                                     className="response-btn"
                                     onClick={() => setState([...state, {
-                                        ...latestState,
+                                        screen: "0",
                                         foundJob: true,
+                                    }, {
+                                        screen: "1-yes-flow",
+                                        foundJobUsingMM: undefined,
+                                        rangeOfRolesApplied: undefined,
+                                        rangeOfEmails: undefined,
+                                        rangeOfCompanies: undefined,
                                     }])}
                                 >
                                     Yes, I've found a job
                                 </button>
-                                <button 
+                                <button
                                     className="response-btn"
-                                    onClick={() => setState([...state, {
-                                        ...latestState,
-                                        foundJob: false,
-                                    }])}
+                                    onClick={() => {
+                                        if (downsellVariant === "B") {
+                                            setState([...state, {
+                                                screen: "0",
+                                                foundJob: false,
+                                            }, {
+                                                screen: "1-no-flow",
+                                            }])
+                                        } else {
+                                            setState([...state, {
+                                                screen: "0",
+                                                foundJob: false,
+                                            }, {
+                                                screen: "offer-declined",
+                                                rolesApplied: undefined,
+                                                companiesEmailed: undefined,
+                                                companiesInterviewed: undefined,
+                                            }])
+                                        }
+                                    }}
                                 >
                                     Not yet - I'm still looking
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div className="popup-right">
-                            <Image 
-                                src="/empire-state-compressed.jpg" 
+                            <Image
+                                src="/empire-state-compressed.jpg"
                                 alt="New York City skyline with Empire State Building at dusk"
                                 className="skyline-image"
                                 width={400}

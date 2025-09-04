@@ -21,7 +21,6 @@ export async function PUT(request: Request) {
 
         const { data: subscriptionData, error: subscriptionError } = await supabaseAdmin.from("subscriptions").select("*").eq("user_id", userId);
         if (subscriptionError) {
-            console.log(subscriptionError);
             return NextResponse.json({
                 error: 'Failed to fetch subscription',
             }, { status: 500 });
@@ -32,35 +31,17 @@ export async function PUT(request: Request) {
             }, { status: 404 });
         }
 
-        const { data, error } = await supabaseAdmin.from("cancellations").select("*").eq("user_id", userId);
-        if (error) {
+
+        const { error: updateError } = await supabaseAdmin.from("cancellations").update({
+            state_json_array: state,
+            updated_at: new Date().toISOString(),
+        }).eq("user_id", userId);
+        if (updateError) {
             return NextResponse.json({
-                error: 'Failed to fetch cancellation flow state',
+                error: 'Failed to update cancellation flow state',
             }, { status: 500 });
         }
-        if (data.length > 0) {
-            const { error: updateError } = await supabaseAdmin.from("cancellations").update({
-                state_json_array: state,
-                updated_at: new Date().toISOString(),
-            }).eq("id", data[0].id);
-            if (updateError) {
-                return NextResponse.json({
-                    error: 'Failed to update cancellation flow state',
-                }, { status: 500 });
-            }
-        } else {
-            const { error: insertError } = await supabaseAdmin.from("cancellations").insert({
-                state_json_array: state,
-                user_id: userId,
-                subscription_id: subscriptionData[0].id,
-            });
-            if (insertError) {
-                return NextResponse.json({
-                    error: 'Failed to insert cancellation flow state',
-                }, { status: 500 });
-            }
-        }
-
+        
         return NextResponse.json({
             success: true,
             message: 'Cancellation flow state updated',

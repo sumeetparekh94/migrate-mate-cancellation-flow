@@ -7,19 +7,19 @@ import Screen0 from "./screen0";
 import { toast } from "react-toastify";
 
 // Reusable header component for survey screens
-function SurveyHeader({ 
-    step, 
-    totalSteps, 
-    onClose, 
-    onBack 
-}: { 
-    step: number; 
-    totalSteps: number; 
-    onClose: () => void; 
-    onBack?: () => void; 
+function SurveyHeader({
+    step,
+    totalSteps,
+    onClose,
+    onBack
+}: {
+    step: number;
+    totalSteps: number;
+    onClose: () => void;
+    onBack?: () => void;
 }) {
     const isCompleted = step === totalSteps;
-    
+
     return (
         <div className="survey-header">
             <button className="survey-close-btn" onClick={onClose}></button>
@@ -60,14 +60,14 @@ function SurveyHeader({
 }
 
 // Mobile header component for 1-yes-flow screen
-function MobileHeader({ 
-    step, 
-    totalSteps, 
-    onClose 
-}: { 
-    step: number; 
-    totalSteps: number; 
-    onClose: () => void; 
+function MobileHeader({
+    step,
+    totalSteps,
+    onClose
+}: {
+    step: number;
+    totalSteps: number;
+    onClose: () => void;
 }) {
     return (
         <div className="mobile-header">
@@ -98,10 +98,10 @@ function MobileHeader({
 }
 
 // Mobile header component for completed screens (no-help-with-visa)
-function MobileHeaderCompleted({ 
-    onClose 
-}: { 
-    onClose: () => void; 
+function MobileHeaderCompleted({
+    onClose
+}: {
+    onClose: () => void;
 }) {
     return (
         <div className="mobile-header">
@@ -133,7 +133,7 @@ function SimpleHeader({ onClose }: { onClose: () => void }) {
     );
 }
 
-type CancelFlowState = {
+export type CancelFlowState = {
     screen: "0",
     foundJob: boolean | undefined,
 } | {
@@ -142,7 +142,6 @@ type CancelFlowState = {
     rangeOfRolesApplied: string | undefined,
     rangeOfEmails: string | undefined,
     rangeOfCompanies: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "feedback",
     feedback: string | undefined,
@@ -178,104 +177,37 @@ type CancelFlowState = {
     rolesApplied: string | undefined,
     companiesEmailed: string | undefined,
     companiesInterviewed: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "cancellation-reason",
     reason: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "reason-too-expensive",
     maxPrice: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "reason-platform-not-helpful",
     feedback: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "reason-not-enough-jobs",
     feedback: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "reason-not-moving",
     feedback: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "reason-other",
     feedback: string | undefined,
-    continueClicked: boolean,
 } | {
     screen: "cancellation-complete-after-reason",
 };
 
-function getNextScreen(state: CancelFlowState): CancelFlowState {
-    try {
-        if (state.screen === "0") {
-            assert(state.foundJob !== undefined);
-            if (state.foundJob) {
-                return {
-                    screen: "1-yes-flow",
-                    foundJobUsingMM: undefined,
-                    rangeOfRolesApplied: undefined,
-                    rangeOfEmails: undefined,
-                    rangeOfCompanies: undefined,
-                    continueClicked: false,
-                };
-            } else {
-                return {
-                    screen: "1-no-flow",
-                };
-            }
-        } else if (state.screen === "1-yes-flow") {
-            assert(state.foundJobUsingMM !== undefined);
-            assert(state.rangeOfRolesApplied !== undefined);
-            assert(state.rangeOfEmails !== undefined);
-            assert(state.rangeOfCompanies !== undefined);
-            assert(state.continueClicked);
-            return {
-                screen: "feedback",
-                feedback: undefined,
-                foundJobUsingMM: state.foundJobUsingMM,
-            };
-        } else if (state.screen === "feedback") {
-            assert(state.feedback !== undefined);
-            // Check if user found job with MigrateMate to determine next screen
-            const surveyState = state as any;
-            if (surveyState.foundJobUsingMM === true) {
-                return {
-                    screen: "yes-with-mm",
-                    hasImmigrationLawyer: undefined,
-                };
-            } else {
-                return state; // Stay on current screen for now
-            }
-        } else if (state.screen === "yes-with-mm") {
-            assert(state.hasImmigrationLawyer !== undefined);
-            return state; // Stay on current screen for now
-        }
-    } catch {
-        return state;
-    }
-    throw new Error("Invalid screen: " + state.screen);
-}
 
-
-export default function CancelFlow({ userId, closeView }: { userId: string, closeView: () => void }) {
+export default function CancelFlow({ userId, closeView, downsellVariant, monthlyPrice }: { userId: string, closeView: () => void, downsellVariant: "A" | "B", monthlyPrice: number }) {
+    console.log("monthlyPrice", monthlyPrice);
+    console.log("downsellVariant", downsellVariant);
     const [state, setState] = useState<CancelFlowState[]>([{
         screen: "0",
         foundJob: undefined,
     }]);
     const [lastSavedState, setLastSavedState] = useState<CancelFlowState[]>(state);
-
-    // Handle automatic transition only for the first screen (screen "0")
-    useEffect(() => {
-        const latestState = state[state.length - 1];
-        if (latestState.screen === "0" && latestState.foundJob !== undefined) {
-            const nextScreenState = getNextScreen(latestState);
-            if (nextScreenState.screen !== latestState.screen) {
-                setState([...state, nextScreenState]);
-            }
-        }
-    }, [state]);
 
     useEffect(() => {
         async function saveState() {
@@ -303,7 +235,6 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             newState.pop();
         }
         if (newState[newState.length - 1].screen !== currScreen) {
-            newState.pop();
             setState(newState);
         }
     }, [state]);
@@ -311,7 +242,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
     const latestState = state[state.length - 1];
 
     if (latestState.screen === "0") {
-        return <Screen0 closeView={closeView} setState={setState} state={state} latestState={latestState} />;
+        return <Screen0 closeView={closeView} setState={setState} state={state} downsellVariant={downsellVariant} />;
     } else if (latestState.screen === "1-yes-flow") {
         const canContinue = latestState.foundJobUsingMM !== undefined &&
             latestState.rangeOfRolesApplied !== undefined &&
@@ -323,17 +254,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="survey-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={1} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={1}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={1} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={1}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="survey-content">
                             <div className="survey-left">
@@ -342,29 +273,29 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     <div className="mobile-back-arrow"></div>
                                     <div className="mobile-back-text">Back</div>
                                 </div>
-                                
+
                                 <div className="congratulations-message">
                                     <div className="congrats-text">Congrats on the new role! 🎉</div>
                                 </div>
-                                
+
                                 <div className="survey-questions">
                                     {/* Question 1 */}
                                     <div className="question-group">
                                         <div className="question-text">Did you find this job with MigrateMate?*</div>
                                         <div className="radio-options">
-                                            <button 
+                                            <button
                                                 className={`radio-option ${latestState.foundJobUsingMM === true ? 'selected' : ''}`}
                                                 onClick={() => {
                                                     console.log("Yes button clicked, current state:", latestState);
                                                     setState([...state, {
-                                                    ...latestState,
-                                                    foundJobUsingMM: true,
+                                                        ...latestState,
+                                                        foundJobUsingMM: true,
                                                     }]);
                                                 }}
                                             >
                                                 <div className="radio-text">Yes</div>
                                             </button>
-                                            <button 
+                                            <button
                                                 className={`radio-option ${latestState.foundJobUsingMM === false ? 'selected' : ''}`}
                                                 onClick={() => setState([...state, {
                                                     ...latestState,
@@ -383,7 +314,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                         <div className="radio-options">
                                             {['0', '1-5', '6-20', '20+'].map((option) => (
-                                                <button 
+                                                <button
                                                     key={option}
                                                     className={`radio-option ${latestState.rangeOfRolesApplied === option ? 'selected' : ''}`}
                                                     onClick={() => setState([...state, {
@@ -404,7 +335,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                         <div className="radio-options">
                                             {['0', '1-5', '6-20', '20+'].map((option) => (
-                                                <button 
+                                                <button
                                                     key={option}
                                                     className={`radio-option ${latestState.rangeOfEmails === option ? 'selected' : ''}`}
                                                     onClick={() => setState([...state, {
@@ -425,7 +356,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                         <div className="radio-options">
                                             {['0', '1-2', '3-5', '5+'].map((option) => (
-                                                <button 
+                                                <button
                                                     key={option}
                                                     className={`radio-option ${latestState.rangeOfCompanies === option ? 'selected' : ''}`}
                                                     onClick={() => setState([...state, {
@@ -439,7 +370,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="continue-section">
                                     <button
                                         className={`continue-btn ${canContinue ? 'enabled' : 'disabled'}`}
@@ -460,10 +391,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="survey-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="survey-image"
                                     width={400}
@@ -483,17 +414,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="feedback-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={2} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={2}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={2} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={2}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="feedback-content">
                             <div className="feedback-left">
@@ -505,11 +436,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 <div className="feedback-message">
                                     <div className="feedback-title">What's one thing you wish we could've helped you with?</div>
                                 </div>
-                                
+
                                 <div className="feedback-description">
                                     We're always looking to improve, your thoughts can help us make Migrate Mate more useful for others.*
                                 </div>
-                                
+
                                 <div className="feedback-textarea-container">
                                     <textarea
                                         className="feedback-textarea"
@@ -524,7 +455,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         Min 25 characters ({latestState.feedback?.length || 0}/25)
                                     </div>
                                 </div>
-                                
+
                                 <div className="feedback-continue-section">
                                     <button
                                         className={`feedback-continue-btn ${canContinue ? 'enabled' : 'disabled'}`}
@@ -533,7 +464,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             if (canContinue) {
                                                 // Check if user found job with MigrateMate to determine next screen
                                                 console.log("Current state foundJobUsingMM:", latestState.foundJobUsingMM);
-                                                
+
                                                 if (latestState.foundJobUsingMM === true) {
                                                     console.log("Transitioning to yes-with-mm");
                                                     setState([...state, {
@@ -542,10 +473,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                                     }]);
                                                 } else {
                                                     console.log("Transitioning to no-without-mm");
-                                                setState([...state, {
+                                                    setState([...state, {
                                                         screen: "no-without-mm",
                                                         hasImmigrationLawyer: undefined,
-                                                }]);
+                                                    }]);
                                                 }
                                             }
                                         }}
@@ -554,10 +485,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="feedback-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="feedback-image"
                                     width={400}
@@ -577,17 +508,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
@@ -599,11 +530,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 <div className="visa-message">
                                     <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
                                 </div>
-                                
+
                                 <div className="visa-question">
                                     <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
                                 </div>
-                                
+
                                 <div className="visa-options">
                                     <div className="visa-option" onClick={() => setState([...state, {
                                         screen: "yes-after-yes-with-mm",
@@ -624,7 +555,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="visa-option-text">No</div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
@@ -642,10 +573,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -666,17 +597,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
@@ -688,11 +619,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 <div className="visa-message">
                                     <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
                                 </div>
-                                
+
                                 <div className="visa-question">
                                     <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
                                 </div>
-                                
+
                                 <div className="visa-options">
                                     <div className="visa-option">
                                         <div className="visa-radio">
@@ -714,7 +645,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         />
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
@@ -731,10 +662,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -754,17 +685,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
@@ -776,11 +707,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 <div className="visa-message">
                                     <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
                                 </div>
-                                
+
                                 <div className="visa-question">
                                     <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
                                 </div>
-                                
+
                                 <div className="visa-options">
                                     <div className="visa-option">
                                         <div className="visa-radio">
@@ -802,7 +733,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         />
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
@@ -819,10 +750,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -842,17 +773,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
@@ -863,23 +794,23 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 </div>
                                 <div className="visa-message">
                                     <div className="visa-title">
-                                        <span>You landed the job! <br/></span>
-                                        <span style={{fontStyle: 'italic'}}>That's what we live for.</span>
+                                        <span>You landed the job! <br /></span>
+                                        <span style={{ fontStyle: 'italic' }}>That's what we live for.</span>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-subtitle">
                                     <div className="visa-subtitle-text">
                                         <span>Even if it wasn't through MigrateMate, let us help get your </span>
-                                        <span style={{textDecoration: 'underline'}}>visa</span>
+                                        <span style={{ textDecoration: 'underline' }}>visa</span>
                                         <span> sorted.</span>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-question">
                                     <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
                                 </div>
-                                
+
                                 <div className="visa-options">
                                     <div className="visa-option" onClick={() => setState([...state, {
                                         screen: "yes-after-no-without-mm",
@@ -900,7 +831,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="visa-option-text">No</div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
@@ -917,10 +848,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -940,17 +871,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
@@ -961,19 +892,19 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 </div>
                                 <div className="visa-message">
                                     <div className="visa-title">
-                                        <span>You landed the job! <br/></span>
-                                        <span style={{fontStyle: 'italic'}}>That's what we live for.</span>
+                                        <span>You landed the job! <br /></span>
+                                        <span style={{ fontStyle: 'italic' }}>That's what we live for.</span>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-subtitle">
-                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br/>let us help get your visa sorted.</div>
+                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br />let us help get your visa sorted.</div>
                                 </div>
-                                
+
                                 <div className="visa-question">
                                     <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
                                 </div>
-                                
+
                                 <div className="visa-options">
                                     <div className="visa-option">
                                         <div className="visa-radio">
@@ -995,7 +926,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         />
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
@@ -1012,10 +943,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -1035,17 +966,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
@@ -1056,19 +987,19 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 </div>
                                 <div className="visa-message">
                                     <div className="visa-title">
-                                        <span>You landed the job! <br/></span>
-                                        <span style={{fontStyle: 'italic'}}>That's what we live for.</span>
+                                        <span>You landed the job! <br /></span>
+                                        <span style={{ fontStyle: 'italic' }}>That's what we live for.</span>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-subtitle">
-                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br/>let us help get your visa sorted.</div>
+                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br />let us help get your visa sorted.</div>
                                 </div>
-                                
+
                                 <div className="visa-question">
                                     <div className="visa-question-text">Is your company providing an immigration lawyer to help with your visa?</div>
                                 </div>
-                                
+
                                 <div className="visa-options">
                                     <div className="visa-option">
                                         <div className="visa-radio">
@@ -1090,7 +1021,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         />
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className={`visa-complete-btn ${canComplete ? 'enabled' : 'disabled'}`}
@@ -1107,10 +1038,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -1128,34 +1059,34 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         {/* Mobile Header */}
-                        <MobileHeaderCompleted 
-                            onClose={closeView} 
+                        <MobileHeaderCompleted
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
                                 {/* Mobile Image - Only visible on mobile */}
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={296}
                                     height={122}
                                 />
-                                
+
                                 <div className="visa-message">
-                                    <div className="visa-title">All done, your cancellation's <br/>been processed.</div>
+                                    <div className="visa-title">All done, your cancellation's <br />been processed.</div>
                                 </div>
-                                
+
                                 <div className="visa-subtitle">
                                     <div className="visa-subtitle-text">We're stoked to hear you've landed a job and sorted your visa. Big congrats from the team. 🙌</div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className="visa-complete-btn enabled"
@@ -1165,10 +1096,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -1186,25 +1117,25 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="visa-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         {/* Mobile Header */}
-                        <MobileHeaderCompleted 
-                            onClose={closeView} 
+                        <MobileHeaderCompleted
+                            onClose={closeView}
                         />
                         <div className="visa-content">
                             <div className="visa-left">
                                 <div className="visa-message">
                                     <div className="visa-title">Your cancellation's all sorted, mate, no more charges.</div>
                                 </div>
-                                
+
                                 <div className="visa-contact-card">
                                     <div className="visa-contact-header">
-                                        <Image 
-                                            src="/mihailo-profile.jpeg" 
+                                        <Image
+                                            src="/mihailo-profile.jpeg"
                                             alt="Mihailo Bozic profile"
                                             className="visa-contact-avatar"
                                             width={40}
@@ -1217,15 +1148,15 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                     <div className="visa-contact-message">
                                         <div className="visa-message-content">
-                                            <span className="visa-message-bold">I'll be reaching out soon to help with the visa side of things.<br/></span>
-                                            <span className="visa-message-normal"><br/>We've got your back, whether it's questions, paperwork, or just figuring out your options.<br/><br/></span>
+                                            <span className="visa-message-bold">I'll be reaching out soon to help with the visa side of things.<br /></span>
+                                            <span className="visa-message-normal"><br />We've got your back, whether it's questions, paperwork, or just figuring out your options.<br /><br /></span>
                                             <span className="visa-message-medium">Keep an eye on your inbox, I'll be in touch </span>
                                             <span className="visa-message-underline">shortly</span>
                                             <span className="visa-message-medium">.</span>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="visa-complete-section">
                                     <button
                                         className="visa-complete-btn enabled"
@@ -1235,10 +1166,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="visa-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="visa-image"
                                     width={400}
@@ -1256,17 +1187,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                 <div className="popup-overlay">
                     <div className="discount-container">
                         {/* Desktop Header */}
-                        <SurveyHeader 
-                            step={1} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={1}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         {/* Mobile Header */}
-                        <MobileHeader 
-                            step={1} 
-                            totalSteps={3} 
-                            onClose={closeView} 
+                        <MobileHeader
+                            step={1}
+                            totalSteps={3}
+                            onClose={closeView}
                         />
                         <div className="discount-content">
                             <div className="discount-left">
@@ -1278,58 +1209,57 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                 <div className="discount-message">
                                     <div className="discount-title">We built this to help you land the job, this makes it a little easier.</div>
                                 </div>
-                                
+
                                 <div className="discount-subtitle">
                                     We've been there and we're here to help you.
                                 </div>
-                                
+
                                 <div className="discount-offer-card">
                                     <div className="discount-offer-content">
                                         <div className="discount-offer-title">
                                             <span className="discount-title-text">Here's</span>
-                                            <span className="discount-title-underline">50% off</span>
+                                            <span className="discount-title-underline">$10 off</span>
                                             <span className="discount-title-text">until you find a job.</span>
                                         </div>
                                         <div className="discount-pricing">
                                             <div className="discount-price">
-                                                <span className="discount-price-amount">$12.50</span>
+                                                <span className="discount-price-amount">${(monthlyPrice / 100) - 10}</span>
                                                 <span className="discount-price-period">/month</span>
                                             </div>
-                                            <div className="discount-original-price">$25 /month</div>
+                                            <div className="discount-original-price">${monthlyPrice / 100}/month</div>
                                         </div>
                                     </div>
                                     <div className="discount-actions">
-                                        <button 
+                                        <button
                                             className="discount-accept-btn"
                                             onClick={() => setState([...state, {
                                                 screen: "offer-accepted",
                                             }])}
                                         >
-                                            <div className="discount-accept-text">Get 50% off</div>
+                                            <div className="discount-accept-text">Get $10 off</div>
                                         </button>
                                         <div className="discount-note">You wont be charged until your next billing date.</div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="discount-decline-section">
-                                    <button 
-                                        className="discount-decline-btn" 
+                                    <button
+                                        className="discount-decline-btn"
                                         onClick={() => setState([...state, {
                                             screen: "offer-declined",
                                             rolesApplied: undefined,
                                             companiesEmailed: undefined,
                                             companiesInterviewed: undefined,
-                                            continueClicked: false,
                                         }])}
                                     >
                                         <div className="discount-decline-text">No thanks</div>
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="discount-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="discount-image"
                                     width={400}
@@ -1351,17 +1281,17 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                             <div className="offer-accepted-left">
                                 <div className="offer-accepted-message">
                                     <div className="offer-accepted-title">
-                                        <span className="offer-title-line1">Great choice, mate!<br/></span>
+                                        <span className="offer-title-line1">Great choice, mate!<br /></span>
                                         <span className="offer-title-line2">You're still on the path to your dream role. </span>
                                         <span className="offer-title-highlight">Let's make it happen together!</span>
                                     </div>
                                 </div>
-                                
+
                                 <div className="offer-accepted-details">
-                                    <span className="offer-details-main">You've got XX days left on your current plan.    Starting from XX date, your monthly payment will be $12.50.<br/><br/></span>
+                                    <span className="offer-details-main">You've got XX days left on your current plan.    Starting from XX date, your monthly payment will be $12.50.<br /><br /></span>
                                     <span className="offer-details-note">You can cancel anytime before then.</span>
                                 </div>
-                                
+
                                 <div className="offer-accepted-actions">
                                     <div className="offer-actions-container">
                                         <div className="offer-actions-content">
@@ -1372,10 +1302,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="offer-accepted-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="offer-accepted-image"
                                     width={400}
@@ -1396,18 +1326,18 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="offer-declined-container">
-                        <SurveyHeader 
-                            step={2} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={2}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="offer-declined-content">
                             <div className="offer-declined-left">
                                 <div className="offer-declined-message">
-                                    <div className="offer-declined-title">Help us understand how you <br/>were using Migrate Mate.</div>
+                                    <div className="offer-declined-title">Help us understand how you <br />were using Migrate Mate.</div>
                                 </div>
-                                
+
                                 <div className="offer-declined-questions">
                                     {/* Question 1 */}
                                     <div className="offer-question-group">
@@ -1418,7 +1348,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                         <div className="offer-radio-options">
                                             {['0', '1-5', '6-20', '20+'].map((option) => (
-                                                <button 
+                                                <button
                                                     key={option}
                                                     className={`offer-radio-option ${latestState.rolesApplied === option ? 'selected' : ''}`}
                                                     onClick={() => setState([...state, {
@@ -1441,7 +1371,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                         <div className="offer-radio-options">
                                             {['0', '1-5', '6-20', '20+'].map((option) => (
-                                                <button 
+                                                <button
                                                     key={option}
                                                     className={`offer-radio-option ${latestState.companiesEmailed === option ? 'selected' : ''}`}
                                                     onClick={() => setState([...state, {
@@ -1464,7 +1394,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                         <div className="offer-radio-options">
                                             {['0', '1-2', '3-5', '5+'].map((option) => (
-                                                <button 
+                                                <button
                                                     key={option}
                                                     className={`offer-radio-option ${latestState.companiesInterviewed === option ? 'selected' : ''}`}
                                                     onClick={() => setState([...state, {
@@ -1478,20 +1408,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="offer-declined-actions">
-                                    <button 
+                                    {downsellVariant === "B" && <button
                                         className="offer-accept-btn"
                                         onClick={() => setState([...state, {
                                             screen: "offer-accepted",
                                         }])}
                                     >
                                         <div className="offer-accept-text">
-                                            <span className="offer-accept-main">Get 50% off | $12.50 </span>
-                                            <span className="offer-accept-strikethrough">$25</span>
+                                            <span className="offer-accept-main">Get $10 off | $ {monthlyPrice / 100} </span>
+                                            <span className="offer-accept-strikethrough">${(monthlyPrice / 100) - 10}</span>
                                         </div>
-                                    </button>
-                                    <button 
+                                    </button>}
+                                    <button
                                         className={`offer-continue-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                         disabled={!canContinue}
                                         onClick={() => {
@@ -1499,7 +1429,6 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                                 setState([...state, {
                                                     screen: "cancellation-reason",
                                                     reason: undefined,
-                                                    continueClicked: false,
                                                 }]);
                                             }
                                         }}
@@ -1508,10 +1437,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="offer-declined-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="offer-declined-image"
                                     width={400}
@@ -1530,28 +1459,28 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="cancellation-reason-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="cancellation-reason-content">
                             <div className="cancellation-reason-left">
                                 <div className="cancellation-reason-message">
-                                    <div className="cancellation-reason-title">What's the main <br/>reason for cancelling?</div>
+                                    <div className="cancellation-reason-title">What's the main <br />reason for cancelling?</div>
                                     <div className="cancellation-reason-subtitle">Please take a minute to let us know why:</div>
                                 </div>
-                                
+
                                 <div className="cancellation-reason-options">
                                     {[
                                         "Too expensive",
-                                        "Platform not helpful", 
+                                        "Platform not helpful",
                                         "Not enough relevant jobs",
                                         "Decided not to move",
                                         "Other"
                                     ].map((option) => (
-                                        <div 
+                                        <div
                                             key={option}
                                             className={`cancellation-reason-option ${latestState.reason === option ? 'selected' : ''}`}
                                             onClick={() => {
@@ -1559,31 +1488,27 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                                     setState([...state, {
                                                         screen: "reason-too-expensive",
                                                         maxPrice: undefined,
-                                                        continueClicked: false,
                                                     }]);
                                                 } else if (option === "Platform not helpful") {
                                                     setState([...state, {
                                                         screen: "reason-platform-not-helpful",
                                                         feedback: undefined,
-                                                        continueClicked: false,
                                                     }]);
                                                 } else if (option === "Not enough relevant jobs") {
                                                     setState([...state, {
                                                         screen: "reason-not-enough-jobs",
                                                         feedback: undefined,
-                                                        continueClicked: false,
                                                     }]);
                                                 } else if (option === "Decided not to move") {
                                                     setState([...state, {
                                                         screen: "reason-not-moving",
                                                         feedback: undefined,
-                                                        continueClicked: false,
                                                     }]);
                                                 } else if (option === "Other") {
                                                     setState([...state, {
                                                         screen: "reason-other",
                                                         feedback: undefined,
-                                                        continueClicked: false,
+
                                                     }]);
                                                 } else {
                                                     setState([...state, {
@@ -1600,39 +1525,34 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         </div>
                                     ))}
                                 </div>
-                                
+
                                 <div className="cancellation-reason-actions">
-                                    <button 
+                                    <button
                                         className="cancellation-accept-btn"
                                         onClick={() => setState([...state, {
                                             screen: "offer-accepted",
                                         }])}
                                     >
                                         <div className="cancellation-accept-text">
-                                            <span className="cancellation-accept-main">Get 50% off | $12.50 </span>
-                                            <span className="cancellation-accept-strikethrough">$25</span>
+                                            <span className="cancellation-accept-main">Get $10 off | $ {monthlyPrice / 100}  </span>
+                                            <span className="cancellation-accept-strikethrough">${(monthlyPrice / 100) - 10}</span>
                                         </div>
                                     </button>
-                                    <button 
+                                    <button
                                         className={`cancellation-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                         disabled={!canContinue}
                                         onClick={() => {
-                                            if (canContinue) {
-                                                setState([...state, {
-                                                    ...latestState,
-                                                    continueClicked: true,
-                                                }]);
-                                            }
+                                            closeView();
                                         }}
                                     >
                                         <div className="cancellation-complete-text">Complete cancellation</div>
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="cancellation-reason-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="cancellation-reason-image"
                                     width={400}
@@ -1651,20 +1571,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="reason-too-expensive-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="reason-too-expensive-content">
                             <div className="reason-too-expensive-left">
                                 <div className="reason-too-expensive-main-container">
                                     <div className="reason-too-expensive-message">
-                                        <div className="reason-too-expensive-title">What's the main <br/>reason for cancelling?</div>
+                                        <div className="reason-too-expensive-title">What's the main <br />reason for cancelling?</div>
                                         <div className="reason-too-expensive-subtitle">Please take a minute to let us know why:</div>
                                     </div>
-                                    
+
                                     <div className="reason-too-expensive-option-section">
                                         <div className="reason-too-expensive-option-content">
                                             <div className="reason-too-expensive-radio">
@@ -1686,10 +1606,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                                     const numericValue = value.replace(/[^0-9.]/g, '');
                                                     // Ensure only one decimal point
                                                     const parts = numericValue.split('.');
-                                                    const validValue = parts.length > 2 
+                                                    const validValue = parts.length > 2
                                                         ? parts[0] + '.' + parts.slice(1).join('')
                                                         : numericValue;
-                                                    
+
                                                     setState([...state, {
                                                         ...latestState,
                                                         maxPrice: validValue,
@@ -1698,20 +1618,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="reason-too-expensive-actions">
-                                        <button 
+                                        {downsellVariant === "B" && <button
                                             className="reason-too-expensive-accept-btn"
                                             onClick={() => setState([...state, {
                                                 screen: "offer-accepted",
                                             }])}
                                         >
                                             <div className="reason-too-expensive-accept-text">
-                                                <span className="reason-too-expensive-accept-main">Get 50% off | $12.50 </span>
-                                                <span className="reason-too-expensive-accept-strikethrough">$25</span>
+                                                <span className="reason-too-expensive-accept-main">Get $10 off | $ {monthlyPrice / 100}</span>
+                                                <span className="reason-too-expensive-accept-strikethrough">${(monthlyPrice / 100) - 10}</span>
                                             </div>
-                                        </button>
-                                        <button 
+                                        </button>}
+                                        <button
                                             className={`reason-too-expensive-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                             disabled={!canContinue}
                                             onClick={() => {
@@ -1727,10 +1647,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="reason-too-expensive-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-too-expensive-image"
                                     width={400}
@@ -1749,11 +1669,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="reason-platform-not-helpful-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="reason-platform-not-helpful-content">
                             <div className="reason-platform-not-helpful-left">
@@ -1762,7 +1682,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="reason-platform-not-helpful-title">What's the main reason?</div>
                                         <div className="reason-platform-not-helpful-subtitle">Please take a minute to let us know why:</div>
                                     </div>
-                                    
+
                                     <div className="reason-platform-not-helpful-option-section">
                                         <div className="reason-platform-not-helpful-option-content">
                                             <div className="reason-platform-not-helpful-radio">
@@ -1787,20 +1707,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="reason-platform-not-helpful-actions">
-                                        <button 
+                                        {downsellVariant === "B" && <button
                                             className="reason-platform-not-helpful-accept-btn"
                                             onClick={() => setState([...state, {
                                                 screen: "offer-accepted",
                                             }])}
                                         >
                                             <div className="reason-platform-not-helpful-accept-text">
-                                                <span className="reason-platform-not-helpful-accept-main">Get 50% off | $12.50 </span>
-                                                <span className="reason-platform-not-helpful-accept-strikethrough">$25</span>
+                                                <span className="reason-platform-not-helpful-accept-main">Get $10 off | $ {monthlyPrice / 100} </span>
+                                                <span className="reason-platform-not-helpful-accept-strikethrough">${(monthlyPrice / 100) - 10}</span>
                                             </div>
-                                        </button>
-                                        <button 
+                                        </button>}
+                                        <button
                                             className={`reason-platform-not-helpful-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                             disabled={!canContinue}
                                             onClick={() => {
@@ -1816,10 +1736,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="reason-platform-not-helpful-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-platform-not-helpful-image"
                                     width={400}
@@ -1838,11 +1758,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="reason-not-enough-jobs-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="reason-not-enough-jobs-content">
                             <div className="reason-not-enough-jobs-left">
@@ -1851,7 +1771,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="reason-not-enough-jobs-title">What's the main reason?</div>
                                         <div className="reason-not-enough-jobs-subtitle">Please take a minute to let us know why:</div>
                                     </div>
-                                    
+
                                     <div className="reason-not-enough-jobs-option-section">
                                         <div className="reason-not-enough-jobs-option-content">
                                             <div className="reason-not-enough-jobs-radio">
@@ -1875,20 +1795,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="reason-not-enough-jobs-actions">
-                                        <button 
+                                        {downsellVariant === "B" && <button
                                             className="reason-not-enough-jobs-accept-btn"
                                             onClick={() => setState([...state, {
                                                 screen: "offer-accepted",
                                             }])}
                                         >
                                             <div className="reason-not-enough-jobs-accept-text">
-                                                <span className="reason-not-enough-jobs-accept-main">Get 50% off | $12.50 </span>
-                                                <span className="reason-not-enough-jobs-accept-strikethrough">$25</span>
+                                                <span className="reason-not-enough-jobs-accept-main">Get $10 off | $ {monthlyPrice / 100} </span>
+                                                <span className="reason-not-enough-jobs-accept-strikethrough">$ {(monthlyPrice / 100) - 10}</span>
                                             </div>
-                                        </button>
-                                        <button 
+                                        </button>}
+                                        <button
                                             className={`reason-not-enough-jobs-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                             disabled={!canContinue}
                                             onClick={() => {
@@ -1904,10 +1824,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="reason-not-enough-jobs-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-not-enough-jobs-image"
                                     width={400}
@@ -1926,11 +1846,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="reason-not-moving-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="reason-not-moving-content">
                             <div className="reason-not-moving-left">
@@ -1939,7 +1859,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="reason-not-moving-title">What's the main reason?</div>
                                         <div className="reason-not-moving-subtitle">Please take a minute to let us know why:</div>
                                     </div>
-                                    
+
                                     <div className="reason-not-moving-option-section">
                                         <div className="reason-not-moving-option-content">
                                             <div className="reason-not-moving-radio">
@@ -1963,20 +1883,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="reason-not-moving-actions">
-                                        <button 
+                                        {downsellVariant === "B" && <button
                                             className="reason-not-moving-accept-btn"
                                             onClick={() => setState([...state, {
                                                 screen: "offer-accepted",
                                             }])}
                                         >
                                             <div className="reason-not-moving-accept-text">
-                                                <span className="reason-not-moving-accept-main">Get 50% off | $12.50 </span>
-                                                <span className="reason-not-moving-accept-strikethrough">$25</span>
+                                                <span className="reason-not-moving-accept-main">Get $10 off | ${monthlyPrice / 100} </span>
+                                                <span className="reason-not-moving-accept-strikethrough">{(monthlyPrice / 100) - 10}</span>
                                             </div>
-                                        </button>
-                                        <button 
+                                        </button>}
+                                        <button
                                             className={`reason-not-moving-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                             disabled={!canContinue}
                                             onClick={() => {
@@ -1992,10 +1912,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="reason-not-moving-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-not-moving-image"
                                     width={400}
@@ -2014,11 +1934,11 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="reason-other-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="reason-other-content">
                             <div className="reason-other-left">
@@ -2027,7 +1947,7 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                         <div className="reason-other-title">What's the main reason?</div>
                                         <div className="reason-other-subtitle">Please take a minute to let us know why:</div>
                                     </div>
-                                    
+
                                     <div className="reason-other-option-section">
                                         <div className="reason-other-option-content">
                                             <div className="reason-other-radio">
@@ -2051,20 +1971,20 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="reason-other-actions">
-                                        <button 
+                                        {downsellVariant === "B" && <button
                                             className="reason-other-accept-btn"
                                             onClick={() => setState([...state, {
                                                 screen: "offer-accepted",
                                             }])}
                                         >
                                             <div className="reason-other-accept-text">
-                                                <span className="reason-other-accept-main">Get 50% off | $12.50 </span>
-                                                <span className="reason-other-accept-strikethrough">$25</span>
+                                                <span className="reason-other-accept-main">Get $10 off | ${monthlyPrice / 100}  </span>
+                                                <span className="reason-other-accept-strikethrough">${(monthlyPrice / 100) - 10} </span>
                                             </div>
-                                        </button>
-                                        <button 
+                                        </button>}
+                                        <button
                                             className={`reason-other-complete-btn ${canContinue ? 'enabled' : 'disabled'}`}
                                             disabled={!canContinue}
                                             onClick={() => {
@@ -2080,10 +2000,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="reason-other-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="reason-other-image"
                                     width={400}
@@ -2100,28 +2020,28 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
             <div className="cancellation-popup">
                 <div className="popup-overlay">
                     <div className="cancellation-complete-after-reason-container">
-                        <SurveyHeader 
-                            step={3} 
-                            totalSteps={3} 
-                            onClose={closeView} 
-                            onBack={goBack} 
+                        <SurveyHeader
+                            step={3}
+                            totalSteps={3}
+                            onClose={closeView}
+                            onBack={goBack}
                         />
                         <div className="cancellation-complete-after-reason-content">
                             <div className="cancellation-complete-after-reason-left">
                                 <div className="cancellation-complete-after-reason-main-container">
                                     <div className="cancellation-complete-after-reason-message">
                                         <div className="cancellation-complete-after-reason-title">
-                                            <span className="cancellation-complete-after-reason-title-line1">Sorry to see you go, mate.<br/></span>
+                                            <span className="cancellation-complete-after-reason-title-line1">Sorry to see you go, mate.<br /></span>
                                             <span className="cancellation-complete-after-reason-title-line2">Thanks for being with us, and you're always welcome back.</span>
                                         </div>
                                         <div className="cancellation-complete-after-reason-subtitle">
-                                            <span className="cancellation-complete-after-reason-subtitle-bold">Your subscription is set to end on XX date. You'll still have full access until then. No further charges after that.<br/><br/></span>
+                                            <span className="cancellation-complete-after-reason-subtitle-bold">Your subscription is set to end on XX date. You'll still have full access until then. No further charges after that.<br /><br /></span>
                                             <span className="cancellation-complete-after-reason-subtitle-normal">Changed your mind? You can reactivate anytime before your end date.</span>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="cancellation-complete-after-reason-actions">
-                                        <button 
+                                        <button
                                             className="cancellation-complete-after-reason-back-btn"
                                             onClick={closeView}
                                         >
@@ -2130,10 +2050,10 @@ export default function CancelFlow({ userId, closeView }: { userId: string, clos
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="cancellation-complete-after-reason-right">
-                                <Image 
-                                    src="/empire-state-compressed.jpg" 
+                                <Image
+                                    src="/empire-state-compressed.jpg"
                                     alt="New York City skyline with Empire State Building at dusk"
                                     className="cancellation-complete-after-reason-image"
                                     width={400}

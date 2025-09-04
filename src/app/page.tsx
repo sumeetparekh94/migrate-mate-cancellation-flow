@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CancelFlow from './cancelFlow';
 
 // Mock user data for UI display
@@ -26,9 +26,31 @@ export default function ProfilePage() {
   const [loading] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [showCancelFlow, setShowCancelFlow] = useState(false); // Start with profile screen
+  const [subScriptionCancelInfo, setSubScriptionCancelInfo] = useState<{
+    downsellVariant: "A" | "B";
+    monthlyPrice: number;
+  } | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   // New state for settings toggle
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
+
+
+  useEffect(() => {
+    const fetchDownsellVariant = async () => {
+      setError(undefined);
+      const response = await fetch(`/api/cancellation-flow-downsell-variant?userId=${mockUser.id}`);
+      if (!response.ok) {
+        setError("Something went wrong, please try again.");
+        return;
+      }
+      const data = await response.json();
+      setSubScriptionCancelInfo(data);
+    };
+    if (showCancelFlow && subScriptionCancelInfo === undefined) {
+      fetchDownsellVariant();
+    }
+  }, [showCancelFlow]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -43,7 +65,22 @@ export default function ProfilePage() {
     console.log('Navigate to jobs');
   };
 
-  if (loading) {
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white shadow rounded-lg overflow-hidden">
+            <div className="px-6 py-8 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-indigo-50">
+              <h1 className="text-2xl font-bold text-gray-900">Error</h1>
+              <p className="text-gray-600">{error}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading || (subScriptionCancelInfo === undefined && showCancelFlow)) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,7 +140,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gray-50 py-12 relative">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg overflow-hidden">
-          {showCancelFlow ? <CancelFlow userId={mockUser.id} closeView={() => setShowCancelFlow(false)} /> : (
+          {showCancelFlow ? <CancelFlow userId={mockUser.id} closeView={() => setShowCancelFlow(false)} monthlyPrice={subScriptionCancelInfo!.monthlyPrice} downsellVariant={subScriptionCancelInfo!.downsellVariant} /> : (
             <div>
               {/* Header */}
               <div className="px-6 py-8 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-indigo-50">
