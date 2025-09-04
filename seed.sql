@@ -26,10 +26,10 @@ CREATE TABLE IF NOT EXISTS cancellations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
   subscription_id UUID REFERENCES subscriptions(id) ON DELETE CASCADE,
-  downsell_variant TEXT NOT NULL CHECK (downsell_variant IN ('A', 'B')),
-  reason TEXT,
-  accepted_downsell BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  state_json_array JSONB,
+  downsell_variant TEXT NOT NULL CHECK (downsell_variant IN ('A', 'B'))
 );
 
 -- Enable Row Level Security

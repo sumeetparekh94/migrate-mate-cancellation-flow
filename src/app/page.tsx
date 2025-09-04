@@ -50,7 +50,7 @@ export default function ProfilePage() {
     if (showCancelFlow && subScriptionCancelInfo === undefined) {
       fetchDownsellVariant();
     }
-  }, [showCancelFlow]);
+  }, [showCancelFlow, subScriptionCancelInfo]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);

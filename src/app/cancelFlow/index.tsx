@@ -1,7 +1,5 @@
-import assert from "assert";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import FormWrapper from "./FormWrapper";
 import "./index.css";
 import Screen0 from "./screen0";
 import { toast } from "react-toastify";
@@ -212,7 +210,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
     useEffect(() => {
         async function saveState() {
             const stateToSave = [...state];
-            let response = await fetch("/api/cancellation-flow-state", {
+            const response = await fetch("/api/cancellation-flow-state", {
                 method: "PUT",
                 body: JSON.stringify({ userId, state: stateToSave }),
             });
@@ -434,11 +432,11 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                     <div className="mobile-back-text">Back</div>
                                 </div>
                                 <div className="feedback-message">
-                                    <div className="feedback-title">What's one thing you wish we could've helped you with?</div>
+                                    <div className="feedback-title">What&apos;s one thing you wish we could&apos;ve helped you with?</div>
                                 </div>
 
                                 <div className="feedback-description">
-                                    We're always looking to improve, your thoughts can help us make Migrate Mate more useful for others.*
+                                    We&apos;re always looking to improve, your thoughts can help us make Migrate Mate more useful for others.*
                                 </div>
 
                                 <div className="feedback-textarea-container">
@@ -528,7 +526,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                     <div className="mobile-back-text">Back</div>
                                 </div>
                                 <div className="visa-message">
-                                    <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
+                                    <div className="visa-title">We helped you land the job, now let&apos;s help you secure your visa.</div>
                                 </div>
 
                                 <div className="visa-question">
@@ -617,7 +615,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                     <div className="mobile-back-text">Back</div>
                                 </div>
                                 <div className="visa-message">
-                                    <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
+                                    <div className="visa-title">We helped you land the job, now let&apos;s help you secure your visa.</div>
                                 </div>
 
                                 <div className="visa-question">
@@ -705,7 +703,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                     <div className="mobile-back-text">Back</div>
                                 </div>
                                 <div className="visa-message">
-                                    <div className="visa-title">We helped you land the job, now let's help you secure your visa.</div>
+                                    <div className="visa-title">We helped you land the job, now let&apos;s help you secure your visa.</div>
                                 </div>
 
                                 <div className="visa-question">
@@ -795,13 +793,13 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 <div className="visa-message">
                                     <div className="visa-title">
                                         <span>You landed the job! <br /></span>
-                                        <span style={{ fontStyle: 'italic' }}>That's what we live for.</span>
+                                        <span style={{ fontStyle: 'italic' }}>That&apos;s what we live for.</span>
                                     </div>
                                 </div>
 
                                 <div className="visa-subtitle">
                                     <div className="visa-subtitle-text">
-                                        <span>Even if it wasn't through MigrateMate, let us help get your </span>
+                                        <span>Even if it wasn&apos;t through MigrateMate, let us help get your </span>
                                         <span style={{ textDecoration: 'underline' }}>visa</span>
                                         <span> sorted.</span>
                                     </div>
@@ -893,12 +891,12 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 <div className="visa-message">
                                     <div className="visa-title">
                                         <span>You landed the job! <br /></span>
-                                        <span style={{ fontStyle: 'italic' }}>That's what we live for.</span>
+                                        <span style={{ fontStyle: 'italic' }}>That&apos;s what we live for.</span>
                                     </div>
                                 </div>
 
                                 <div className="visa-subtitle">
-                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br />let us help get your visa sorted.</div>
+                                    <div className="visa-subtitle-text">Even if it wasn&apos;t through Migrate Mate, <br />let us help get your visa sorted.</div>
                                 </div>
 
                                 <div className="visa-question">
@@ -988,12 +986,12 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 <div className="visa-message">
                                     <div className="visa-title">
                                         <span>You landed the job! <br /></span>
-                                        <span style={{ fontStyle: 'italic' }}>That's what we live for.</span>
+                                        <span style={{ fontStyle: 'italic' }}>That&apos;s what we live for.</span>
                                     </div>
                                 </div>
 
                                 <div className="visa-subtitle">
-                                    <div className="visa-subtitle-text">Even if it wasn't through Migrate Mate, <br />let us help get your visa sorted.</div>
+                                    <div className="visa-subtitle-text">Even if it wasn&apos;t through Migrate Mate, <br />let us help get your visa sorted.</div>
                                 </div>
 
                                 <div className="visa-question">
@@ -1080,11 +1078,11 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 />
 
                                 <div className="visa-message">
-                                    <div className="visa-title">All done, your cancellation's <br />been processed.</div>
+                                    <div className="visa-title">All done, your cancellation&apos;s <br />been processed.</div>
                                 </div>
 
                                 <div className="visa-subtitle">
-                                    <div className="visa-subtitle-text">We're stoked to hear you've landed a job and sorted your visa. Big congrats from the team. 🙌</div>
+                                    <div className="visa-subtitle-text">We&apos;re stoked to hear you&apos;ve landed a job and sorted your visa. Big congrats from the team. 🙌</div>
                                 </div>
 
                                 <div className="visa-complete-section">
@@ -1129,7 +1127,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                         <div className="visa-content">
                             <div className="visa-left">
                                 <div className="visa-message">
-                                    <div className="visa-title">Your cancellation's all sorted, mate, no more charges.</div>
+                                    <div className="visa-title">Your cancellation&apos;s all sorted, mate, no more charges.</div>
                                 </div>
 
                                 <div className="visa-contact-card">
@@ -1148,9 +1146,9 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                     </div>
                                     <div className="visa-contact-message">
                                         <div className="visa-message-content">
-                                            <span className="visa-message-bold">I'll be reaching out soon to help with the visa side of things.<br /></span>
-                                            <span className="visa-message-normal"><br />We've got your back, whether it's questions, paperwork, or just figuring out your options.<br /><br /></span>
-                                            <span className="visa-message-medium">Keep an eye on your inbox, I'll be in touch </span>
+                                            <span className="visa-message-bold">I&apos;ll be reaching out soon to help with the visa side of things.<br /></span>
+                                            <span className="visa-message-normal"><br />We&apos;ve got your back, whether it&apos;s questions, paperwork, or just figuring out your options.<br /><br /></span>
+                                            <span className="visa-message-medium">Keep an eye on your inbox, I&apos;ll be in touch </span>
                                             <span className="visa-message-underline">shortly</span>
                                             <span className="visa-message-medium">.</span>
                                         </div>
@@ -1211,13 +1209,13 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 </div>
 
                                 <div className="discount-subtitle">
-                                    We've been there and we're here to help you.
+                                    We&apos;ve been there and we&apos;re here to help you.
                                 </div>
 
                                 <div className="discount-offer-card">
                                     <div className="discount-offer-content">
                                         <div className="discount-offer-title">
-                                            <span className="discount-title-text">Here's</span>
+                                            <span className="discount-title-text">Here&apos;s</span>
                                             <span className="discount-title-underline">$10 off</span>
                                             <span className="discount-title-text">until you find a job.</span>
                                         </div>
@@ -1282,13 +1280,13 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                 <div className="offer-accepted-message">
                                     <div className="offer-accepted-title">
                                         <span className="offer-title-line1">Great choice, mate!<br /></span>
-                                        <span className="offer-title-line2">You're still on the path to your dream role. </span>
-                                        <span className="offer-title-highlight">Let's make it happen together!</span>
+                                        <span className="offer-title-line2">You&apos;re still on the path to your dream role. </span>
+                                        <span className="offer-title-highlight">Let&apos;s make it happen together!</span>
                                     </div>
                                 </div>
 
                                 <div className="offer-accepted-details">
-                                    <span className="offer-details-main">You've got XX days left on your current plan.    Starting from XX date, your monthly payment will be $12.50.<br /><br /></span>
+                                    <span className="offer-details-main">You&apos;ve got XX days left on your current plan.    Starting from XX date, your monthly payment will be $12.50.<br /><br /></span>
                                     <span className="offer-details-note">You can cancel anytime before then.</span>
                                 </div>
 
@@ -1468,7 +1466,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                         <div className="cancellation-reason-content">
                             <div className="cancellation-reason-left">
                                 <div className="cancellation-reason-message">
-                                    <div className="cancellation-reason-title">What's the main <br />reason for cancelling?</div>
+                                    <div className="cancellation-reason-title">What&apos;s the main <br />reason for cancelling?</div>
                                     <div className="cancellation-reason-subtitle">Please take a minute to let us know why:</div>
                                 </div>
 
@@ -1581,7 +1579,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             <div className="reason-too-expensive-left">
                                 <div className="reason-too-expensive-main-container">
                                     <div className="reason-too-expensive-message">
-                                        <div className="reason-too-expensive-title">What's the main <br />reason for cancelling?</div>
+                                        <div className="reason-too-expensive-title">What&apos;s the main <br />reason for cancelling?</div>
                                         <div className="reason-too-expensive-subtitle">Please take a minute to let us know why:</div>
                                     </div>
 
@@ -1679,7 +1677,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             <div className="reason-platform-not-helpful-left">
                                 <div className="reason-platform-not-helpful-main-container">
                                     <div className="reason-platform-not-helpful-message">
-                                        <div className="reason-platform-not-helpful-title">What's the main reason?</div>
+                                        <div className="reason-platform-not-helpful-title">What&apos;s the main reason?</div>
                                         <div className="reason-platform-not-helpful-subtitle">Please take a minute to let us know why:</div>
                                     </div>
 
@@ -1768,7 +1766,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             <div className="reason-not-enough-jobs-left">
                                 <div className="reason-not-enough-jobs-main-container">
                                     <div className="reason-not-enough-jobs-message">
-                                        <div className="reason-not-enough-jobs-title">What's the main reason?</div>
+                                        <div className="reason-not-enough-jobs-title">What&apos;s the main reason?</div>
                                         <div className="reason-not-enough-jobs-subtitle">Please take a minute to let us know why:</div>
                                     </div>
 
@@ -1856,7 +1854,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             <div className="reason-not-moving-left">
                                 <div className="reason-not-moving-main-container">
                                     <div className="reason-not-moving-message">
-                                        <div className="reason-not-moving-title">What's the main reason?</div>
+                                        <div className="reason-not-moving-title">What&apos;s the main reason?</div>
                                         <div className="reason-not-moving-subtitle">Please take a minute to let us know why:</div>
                                     </div>
 
@@ -1944,7 +1942,7 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                             <div className="reason-other-left">
                                 <div className="reason-other-main-container">
                                     <div className="reason-other-message">
-                                        <div className="reason-other-title">What's the main reason?</div>
+                                        <div className="reason-other-title">What&apos;s the main reason?</div>
                                         <div className="reason-other-subtitle">Please take a minute to let us know why:</div>
                                     </div>
 
@@ -2032,10 +2030,10 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
                                     <div className="cancellation-complete-after-reason-message">
                                         <div className="cancellation-complete-after-reason-title">
                                             <span className="cancellation-complete-after-reason-title-line1">Sorry to see you go, mate.<br /></span>
-                                            <span className="cancellation-complete-after-reason-title-line2">Thanks for being with us, and you're always welcome back.</span>
+                                            <span className="cancellation-complete-after-reason-title-line2">Thanks for being with us, and you&apos;re always welcome back.</span>
                                         </div>
                                         <div className="cancellation-complete-after-reason-subtitle">
-                                            <span className="cancellation-complete-after-reason-subtitle-bold">Your subscription is set to end on XX date. You'll still have full access until then. No further charges after that.<br /><br /></span>
+                                            <span className="cancellation-complete-after-reason-subtitle-bold">Your subscription is set to end on XX date. You&apos;ll still have full access until then. No further charges after that.<br /><br /></span>
                                             <span className="cancellation-complete-after-reason-subtitle-normal">Changed your mind? You can reactivate anytime before your end date.</span>
                                         </div>
                                     </div>
@@ -2067,5 +2065,5 @@ export default function CancelFlow({ userId, closeView, downsellVariant, monthly
         )
     }
 
-    throw new Error("Invalid screen: " + (latestState as any).screen);
+    return null;
 }

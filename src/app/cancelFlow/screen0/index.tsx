@@ -65,7 +65,7 @@ export default function Screen0({
                                         rangeOfCompanies: undefined,
                                     }])}
                                 >
-                                    Yes, I've found a job
+                                    Yes, I&apos;ve found a job
                                 </button>
                                 <button
                                     className="response-btn"
@@ -90,7 +90,7 @@ export default function Screen0({
                                         }
                                     }}
                                 >
-                                    Not yet - I'm still looking
+                                    Not yet - I&apos;m still looking
                                 </button>
                             </div>
                         </div>
